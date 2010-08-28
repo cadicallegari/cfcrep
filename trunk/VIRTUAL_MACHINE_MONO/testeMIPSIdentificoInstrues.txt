@@ -1,0 +1,19 @@
+j 2											op = 0 funct =
+XXX
+jal 15										op = 0 funct =
+lui $16,1			//$s0 = 1				op = 0 funct =
+lui $17,2			//$s1 = 2				op = 0 funct =
+lui $18,4			//$s2 = 4				op = 0 funct =
+add $19,$16,$18		//$s3 = 5        		op = 0 funct = 32
+and $16,$18,$17		//$s0 = 0				op = 0 funct = 36
+and $20,$19,$18		//$s4 = 4				op = 0 funct = 36
+or $21,$18,$17		//$s5 = 6				op = 0 funct = 37
+lui $16,128			//$s0 = 64				op = 0 funct = 
+sw $19,4($16)		//Mem[128 + 4] = 5		op = 43
+lw $22,4($16)		//$s6 = Mem[64 + 4]		op = 35
+sub $19,$19,$16		//$s3 = -59				op = 0 funct = 34
+beq $18,$20,2		//PC = PC+4+8			op =  4
+jr $31										op = 0 funct =
+jr $31										op = 0 funct =
+bne $17,$16,1		//PC = PC+4+4			op =  5
+XXX
