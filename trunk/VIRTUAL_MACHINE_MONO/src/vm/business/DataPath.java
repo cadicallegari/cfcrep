@@ -9,8 +9,11 @@ package vm.business;
 import java.util.BitSet;
 import java.util.Vector;
 
+import vm.bo.ALU;
 import vm.bo.ALUControl;
+import vm.bo.Adder;
 import vm.bo.Control;
+import vm.bo.DataMemory;
 import vm.bo.Instruction;
 import vm.bo.InstructionMemory;
 import vm.bo.MUX;
@@ -26,10 +29,10 @@ public class DataPath {
 	private InstructionMemory instructionMemory = new InstructionMemory();
 	private Instruction instruction_current = null;
 	private Control control = new Control();
-	private BitSet[] dataMemory = new BitSet[VMEspecification.DATA_MEM_SIZE];
+	private DataMemory dataMemory = new DataMemory();
 	private RegisterSet  registers = new RegisterSet();
 	private ALUControl aluControl = new ALUControl();
-
+	private ALU alu = new ALU();
 	
 	public static int PC;
 	
@@ -40,9 +43,6 @@ public class DataPath {
 	 */
 	public DataPath() {
 		DataPath.PC = 0;
-		for (int i = 0; i < VMEspecification.DATA_MEM_SIZE; i++) {
-			this.dataMemory[i] = new BitSet(31);
-		}
 	}
 
 	
@@ -50,6 +50,8 @@ public class DataPath {
 		this.instructionMemory.setInstruction(instruction);
 	}
 
+	
+	
 	/**
 	 * 
 	 */
@@ -61,7 +63,10 @@ public class DataPath {
 		BitSet jumpAddress;
 		int jumpAddressExtended;
 		int pc4;
+		int pc4_SignalExtended;
 		int jumpAddressI;
+		int jumpAddressSignalExtended;
+		int secondOperator;
 		
 		//le a instruçao da memoria de instruçoes
 		this.instruction_current = this.instructionMemory.readInstruction(DataPath.PC);
@@ -74,7 +79,7 @@ public class DataPath {
 		this.control.setOp(this.instruction_current.OP);
 		
 		//TODO calcular jump address j_address sh 2 + pc + 4
-		pc4 = DataPath.PC + 4;
+		pc4 = Adder.add(DataPath.PC, 4);
 		jumpAddressExtended = this.shiftLeft2(Util.bitSetToInt(this.instruction_current.J_ADDRESS));
 		jumpAddress = this.calculateJumpAddress(jumpAddressExtended, pc4);
 		
@@ -89,15 +94,43 @@ public class DataPath {
 		this.registers.setWriteRegister(Util.bitSetToInt(wregister));
 		
 		//extende o sinal e faz o shift left de 2 do endereço da instruçao do tipo I
-		jumpAddressI = this.extensorDeSinal(Util.bitSetToInt(this.instruction_current.ADDRESS));
-		jumpAddressI = this.shiftLeft2(jumpAddressI);
+		jumpAddressSignalExtended = this.extensorDeSinal(Util.bitSetToInt(this.instruction_current.ADDRESS));
+		jumpAddressI = this.shiftLeft2(jumpAddressSignalExtended);
+		
+		//soma pc + 4 com endereco com o sinal estendido
+		pc4_SignalExtended = Adder.add(pc4, jumpAddressSignalExtended);
 		
 		//alimenta as entradas da ALU CONTROL
 		this.aluControl.FUNCT = this.instruction_current.FUNCT;
 		this.aluControl.ALUOp = this.control.ALUOp;
 		
+		//alimenta entradas da ULA para executar operaçoes
+		this.alu.OPERATOR1 = this.registers.readData1();
+		
+		//descide qual o segundo operador da ULA
+		secondOperator = MUX.choise(this.control.ALUSrc,
+									this.registers.readData2(),
+									jumpAddressSignalExtended
+									);
+		
+		this.alu.OPERATOR2 = secondOperator;
+
+		//executa a operaçao na alu
+		this.alu.execute();
+		
+		
+		this.dataMemory.ADDRESS = this.alu.RESULT;
+		this.dataMemory.WRITEDATA = Util.intToBitSet(this.registers.readData2());
+		
+		
+		
+		//verificar escrita nos registradores e na memoria
 	}
 
+	
+	
+	
+	
 
 	/**
 	 * @param jumpAddressExtended

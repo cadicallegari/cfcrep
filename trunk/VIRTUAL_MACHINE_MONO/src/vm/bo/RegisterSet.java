@@ -22,7 +22,7 @@ public class RegisterSet {
 	private BitSet readData1;
 	private BitSet readData2;
 	
-	
+	private int[] content = new int[32];
 	
 	/**
 	 * @return the readRegister1
@@ -95,6 +95,17 @@ public class RegisterSet {
 	 */
 	public void setReadData2(BitSet readData2) {
 		this.readData2 = readData2;
+	}
+	
+	
+	
+	public int readData1() {
+		return this.content[this.readRegister1]; 
+	}
+	
+	
+	public int readData2() {
+		return this.content[this.readRegister2];
 	}
 	
 }
