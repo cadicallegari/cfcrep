@@ -61,6 +61,7 @@ public class DataPath {
 		
 		BitSet wregister;
 		BitSet jumpAddress;
+		BitSet writeData;
 		int jumpAddressExtended;
 		int pc4;
 		int pc4_SignalExtended;
@@ -109,21 +110,32 @@ public class DataPath {
 		
 		//descide qual o segundo operador da ULA
 		secondOperator = MUX.choise(this.control.ALUSrc,
-									this.registers.readData2(),
-									jumpAddressSignalExtended
+									jumpAddressSignalExtended,
+									this.registers.readData2()
 									);
 		
 		this.alu.OPERATOR2 = secondOperator;
 
 		//executa a operaçao na alu
-		this.alu.execute();
+		this.alu.execute(this.aluControl);
 		
 		
 		this.dataMemory.ADDRESS = this.alu.RESULT;
 		this.dataMemory.WRITEDATA = Util.intToBitSet(this.registers.readData2());
+		//de acordo com os sinais faz as operaçoes na memoria
+		this.dataMemory.execute(this.control.MemWrite, this.control.MemRead);
+		
+		//escolhe o a entrada do write data
+		writeData = MUX.choise(this.control.MemtoReg,
+								this.dataMemory.READDATA,
+								Util.intToBitSet(this.alu.RESULT)
+								);
+		this.registers.setWriteData(writeData);
+
+		//falta calcular endereço la de cima
 		
 		
-		
+		this.registers.execute(this.control.RegWrite);
 		//verificar escrita nos registradores e na memoria
 	}
 

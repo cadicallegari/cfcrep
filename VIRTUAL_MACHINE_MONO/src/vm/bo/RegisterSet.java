@@ -8,6 +8,8 @@ package vm.bo;
 
 import java.util.BitSet;
 
+import vm.business.Util;
+
 /**
  * @author cadi
  *
@@ -106,6 +108,14 @@ public class RegisterSet {
 	
 	public int readData2() {
 		return this.content[this.readRegister2];
+	}
+	/**
+	 * @param regWrite
+	 */
+	public void execute(boolean regWrite) {
+		if (regWrite) {
+			this.content[this.writeRegister] = Util.bitSetToInt(writeData);
+		}
 	}
 	
 }

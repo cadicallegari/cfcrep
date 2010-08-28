@@ -17,9 +17,10 @@ public class ALU {
 	public int RESULT;
 	public boolean ZERO;
 	/**
+	 * @param aluControl 
 	 * 
 	 */
-	public void execute() {
+	public void execute(ALUControl aluControl) {
 		// TODO Auto-generated method stub
 		
 	}
