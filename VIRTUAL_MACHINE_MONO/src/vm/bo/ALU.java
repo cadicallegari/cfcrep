@@ -12,8 +12,16 @@ package vm.bo;
  */
 public class ALU {
 	
-	public int operator1;
-	public int operator2;
-	public int result;
+	public int OPERATOR1;
+	public int OPERATOR2;
+	public int RESULT;
+	public boolean ZERO;
+	/**
+	 * 
+	 */
+	public void execute() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
