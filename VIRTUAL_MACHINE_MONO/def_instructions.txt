@@ -1,0 +1,18 @@
+	R Type
+add    			op = 0 funct = 32 
+sub 			op = 0 funct = 34
+and 			op = 0 funct = 36 
+or 				op = 0 funct = 37 
+
+	I type
+
+lw 				op = 35   
+sw 				op = 43 
+beq 			op =  4  
+bne 			op =  5 
+li				op = 21  			//load imidiete | 
+
+	J Type
+j				op =  funct =  		//jump          | jump label
+jal				op =  funct =      	//jump and link | $ra = pc + 4 && jump label
+jr				op =  funct =  		//jump register | jump $ra
