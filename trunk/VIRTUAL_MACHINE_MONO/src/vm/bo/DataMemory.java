@@ -29,4 +29,19 @@ public class DataMemory {
 		}
 	}
 
+
+	/**
+	 * @param memWrite
+	 * @param memRead
+	 */
+	public void execute(boolean memWrite, boolean memRead) {
+		if (memWrite) {
+			this.memory[this.ADDRESS] = this.WRITEDATA;
+		}
+		if (memRead) {
+			this.READDATA = this.memory[this.ADDRESS];
+		}
+	}
+	
+
 }
