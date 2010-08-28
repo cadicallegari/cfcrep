@@ -28,6 +28,7 @@ public class Instruction {
 	
 	//Para Tipo I
 	public BitSet CONST;
+	public BitSet ADDRESS;
 	
 	//Para tipo J
 	public BitSet J_ADDRESS;
