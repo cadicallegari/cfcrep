@@ -23,4 +23,5 @@ public class VMEspecification {
 	
 	public static final int OP_CODE_J = 2;
 	
+	public static final int EXTEND_INT = 0x00008000;
 }
