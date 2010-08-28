@@ -64,6 +64,7 @@ public class InstructionMemory {
 		
 		//para constante da I
 		instruction.CONST = this.getCONST(str);
+		instruction.ADDRESS = this.getADDRESS(str);
 		
 		instruction.J_ADDRESS = this.getJADRESS(str);
 		
@@ -73,6 +74,27 @@ public class InstructionMemory {
 
 	
 	
+	/**
+	 * @param str
+	 * @return
+	 */
+	private BitSet getADDRESS(String str) {
+		BitSet address = new BitSet(15);
+		int index = 15;
+		
+		for (int i = 0; i < 16; i++) {
+			if (str.charAt(i) == '0') {
+				address.clear(index);
+			}
+			else if (str.charAt(i) == '1') {
+				address.set(index);
+			}
+			index--;
+		}
+		
+		return address;
+	}
+
 	/**
 	 * @param str
 	 * @return

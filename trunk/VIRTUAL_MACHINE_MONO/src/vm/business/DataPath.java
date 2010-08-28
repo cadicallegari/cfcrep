@@ -9,6 +9,7 @@ package vm.business;
 import java.util.BitSet;
 import java.util.Vector;
 
+import vm.bo.ALUControl;
 import vm.bo.Control;
 import vm.bo.Instruction;
 import vm.bo.InstructionMemory;
@@ -27,7 +28,7 @@ public class DataPath {
 	private Control control = new Control();
 	private BitSet[] dataMemory = new BitSet[VMEspecification.DATA_MEM_SIZE];
 	private RegisterSet  registers = new RegisterSet();
-	
+	private ALUControl aluControl = new ALUControl();
 
 	
 	public static int PC;
@@ -60,7 +61,7 @@ public class DataPath {
 		BitSet jumpAddress;
 		int jumpAddressExtended;
 		int pc4;
-		
+		int jumpAddressI;
 		
 		//le a instruçao da memoria de instruçoes
 		this.instruction_current = this.instructionMemory.readInstruction(DataPath.PC);
@@ -87,7 +88,13 @@ public class DataPath {
 									this.instruction_current.RD);
 		this.registers.setWriteRegister(Util.bitSetToInt(wregister));
 		
+		//extende o sinal e faz o shift left de 2 do endereço da instruçao do tipo I
+		jumpAddressI = this.extensorDeSinal(Util.bitSetToInt(this.instruction_current.ADDRESS));
+		jumpAddressI = this.shiftLeft2(jumpAddressI);
 		
+		//alimenta as entradas da ALU CONTROL
+		this.aluControl.FUNCT = this.instruction_current.FUNCT;
+		this.aluControl.ALUOp = this.control.ALUOp;
 		
 	}
 
@@ -98,8 +105,9 @@ public class DataPath {
 	 * @return
 	 */
 	private BitSet calculateJumpAddress(int jumpAddressExtended, int pc4) {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO erro em potencial
+		BitSet end = Util.intToBitSet(jumpAddressExtended + pc4);
+		return end;
 	}
 
 
@@ -111,6 +119,15 @@ public class DataPath {
 		return i << 2;
 	}
 	
+	
+	private int extensorDeSinal(int end) {
+		//TODO erro em potencial
+		if ((end & VMEspecification.EXTEND_INT) == VMEspecification.EXTEND_INT) {
+			end &= ~VMEspecification.EXTEND_INT;
+			end |= VMEspecification.EXTEND_INT;
+		}
+		return end;
+	}
 
 
 
