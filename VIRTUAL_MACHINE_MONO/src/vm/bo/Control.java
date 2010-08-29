@@ -27,7 +27,7 @@ public class Control {
 	public boolean ALUSrc;
 	public boolean RegWrite;
 	
-	private BitSet op;
+//	private BitSet op;
 	private int opCode;
 	
 	
@@ -38,7 +38,7 @@ public class Control {
 	 * @param op
 	 */
 	public void setOp(BitSet op) {
-		this.op = op;
+//		this.op = op;
 		this.opCode = Util.bitSetToInt(op);
 		
 		if (this.opCode == VMEspecification.R_TYPE) {      //R-TYPE

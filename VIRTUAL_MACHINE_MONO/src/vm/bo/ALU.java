@@ -16,6 +16,8 @@ public class ALU {
 	public int OPERATOR2;
 	public int RESULT;
 	public boolean ZERO;
+	
+	
 	/**
 	 * @param aluControl 
 	 * 
