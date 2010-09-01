@@ -57,7 +57,7 @@ public class DataPath {
 	 */
 	public void run() {
 		
-//		DataPath.PC = 12;
+		DataPath.PC = 8;
 		
 		BitSet wregister;			//temporaria para guardar a escolha do registrador de destino
 		BitSet jumpAddress;			//temporaria para guardar o endereço de desvio end + pc + 4 
