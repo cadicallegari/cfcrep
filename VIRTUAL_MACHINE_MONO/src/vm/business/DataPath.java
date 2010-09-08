@@ -46,8 +46,8 @@ public class DataPath {
 	}
 
 	
-	public void setInstructionMemory(Vector<String> instruction) {
-		this.instructionMemory.setInstruction(instruction);
+	public void setInstructionMemory(InstructionMemory instructionMemory) {
+		this.instructionMemory = instructionMemory;
 	}
 
 	
@@ -57,7 +57,7 @@ public class DataPath {
 	 */
 	public void run() {
 		
-		DataPath.PC = 8;
+		DataPath.PC = 44;
 		
 		BitSet wregister;			//temporaria para guardar a escolha do registrador de destino
 		BitSet jumpAddress;			//temporaria para guardar o endereço de desvio end + pc + 4 
@@ -84,6 +84,7 @@ public class DataPath {
 		//TODO calcular jump address j_address sh 2 + pc + 4
 		pc4 = Adder.add(DataPath.PC, 4);
 		jumpAddressExtended = this.shiftLeft2(Util.bitSetToInt(this.instruction_current.J_ADDRESS));
+		System.out.println(Util.bitSetToInt(this.instruction_current.J_ADDRESS) + " endereco " + jumpAddressExtended);
 		jumpAddress = this.calculateJumpAddress(jumpAddressExtended, pc4);
 		
 		//rs e rt servem de entrada para banco de registradores
@@ -97,7 +98,7 @@ public class DataPath {
 		this.registers.WRITE_REGISTER = Util.bitSetToInt(wregister);
 		
 		//extende o sinal e faz o shift left de 2 do endereço da instruçao do tipo I
-		jumpAddressSignalExtended = this.extensorDeSinal(Util.bitSetToInt(this.instruction_current.ADDRESS));
+		jumpAddressSignalExtended = Util.bitSetToInt(this.signalExtend(this.instruction_current.ADDRESS));
 		jumpAddressI = this.shiftLeft2(jumpAddressSignalExtended);
 		
 		//soma pc + 4 com endereco com o sinal estendido
@@ -152,6 +153,28 @@ public class DataPath {
 	
 
 	/**
+	 * @param bitSetToInt
+	 * @return
+	 */
+	private BitSet signalExtend(BitSet b) {
+		BitSet ret = new BitSet(31);
+		
+		if (b.get(15)) {
+			ret.set(0, ret.size());
+		}
+		else {
+			ret.clear();
+		}
+
+		for (int i = 0; i < 15; i++) {
+			ret.set(i, b.get(i));
+		}
+		
+		return ret;
+	}
+
+
+	/**
 	 * @param jumpAddressExtended
 	 * @param pc4
 	 * @return
@@ -168,18 +191,18 @@ public class DataPath {
 	 * @return
 	 */
 	private int shiftLeft2(int i) {
-		return i << 2;
+		return i * 4;
 	}
 	
 	
-	private int extensorDeSinal(int end) {
-		//TODO erro em potencial
-		if ((end & VMEspecification.EXTEND_INT) == VMEspecification.EXTEND_INT) {
-			end &= ~VMEspecification.EXTEND_INT;
-			end |= VMEspecification.EXTEND_INT;
-		}
-		return end;
-	}
+//	private int extensorDeSinal(int end) {
+//		//TODO erro em potencial
+//		if ((end & VMEspecification.EXTEND_INT) == VMEspecification.EXTEND_INT) {
+//			end &= ~VMEspecification.EXTEND_INT;
+//			end |= VMEspecification.EXTEND_INT;
+//		}
+//		return end;
+//	}
 
 
 

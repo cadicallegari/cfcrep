@@ -9,9 +9,10 @@ package vm.business;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Vector;
 
 import javax.swing.JFileChooser;
+
+import vm.bo.InstructionMemory;
 
 /**
  * @author cadi
@@ -20,10 +21,11 @@ import javax.swing.JFileChooser;
 public class FileLoader {
 
 	public static String filePath = "";
-	public static Vector<String> instruction = new Vector<String>();
+//	public static InstructionMemory instruction = new InstructionMemory();
 	
 	
-	public static void load(String filePath) throws IOException {
+	public static InstructionMemory load(String filePath) throws IOException {
+		InstructionMemory instruction = new InstructionMemory();
 		FileLoader.filePath = filePath;
 			
 		BufferedReader buf = new BufferedReader(new FileReader(FileLoader.filePath));
@@ -32,12 +34,12 @@ public class FileLoader {
 		
 		while (buf.ready()) {
 			line.trim();
-			FileLoader.instruction.add(line);
-//			FileLoader.instruction.add("");   //artificio algebrico
-//			FileLoader.instruction.add("");
-//			FileLoader.instruction.add("");
+			//TODO fazer endereço incrementar de 4 em 4
+			instruction.addInstruction(line);
 			line = buf.readLine();
 		}
+		
+		return instruction;
 		
 	}
 

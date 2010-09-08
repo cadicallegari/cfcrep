@@ -9,6 +9,8 @@ package vm.bo;
 import java.util.BitSet;
 import java.util.Vector;
 
+import vm.business.Util;
+
 /**
  * @author cadi
  *
@@ -36,10 +38,14 @@ public class InstructionMemory {
 	}
 
 	
-	public InstructionMemory(Vector<String> instructions) {
-		this.instruction = instructions;
+	
+	public void addInstruction(String str) {
+		this.instruction.add(str);
+		this.instruction.add("");
+		this.instruction.add("");
+		this.instruction.add("");
 	}
-
+	
 
 	/**
 	 * @param pC
@@ -48,11 +54,13 @@ public class InstructionMemory {
 	public Instruction readInstruction(int pC) {
 		
 		String str = this.instruction.get(pC);
+		if (str.equals("")) {
+			System.out.println("Endereço PC invalido");
+			return null;
+		}
 		BitSet op = this.getOP(str);
 		Instruction instruction = new Instruction();
 		
-		System.out.println(str);
-
 		instruction.OP = op;
 		instruction.RS = this.getRS(str);
 		instruction.RT = this.getRT(str);
@@ -67,6 +75,10 @@ public class InstructionMemory {
 		instruction.ADDRESS = this.getADDRESS(str);
 		
 		instruction.J_ADDRESS = this.getJADRESS(str);
+		
+		System.out.println(str);
+		System.out.println("op code " + Util.bitSetToInt(op));
+		System.out.println("op code " + Util.bitSetToInt(instruction.FUNCT));
 		
 		return instruction;
 		
