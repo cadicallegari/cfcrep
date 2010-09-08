@@ -6,6 +6,8 @@
  */
 package vm.bo;
 
+import java.util.BitSet;
+
 import vm.business.Util;
 import vm.especification.VMEspecification;
 
@@ -29,20 +31,37 @@ public class ALU {
 		
 		int id = Util.bitSetToInt(aluControl.ALUOp);
 		
+		System.out.println(id);
+		
 		if (id == VMEspecification.ALUOP_RTYPE) {
 			int funct = Util.bitSetToInt(aluControl.FUNCT);
 			
-			if (funct == 0) {    	//and
-				System.out.println("and");
+			System.out.println("funct = " + funct);
+			
+			//TODO criar constantes para funct
+			if (funct == 36) {    	//and
+				BitSet temp = Util.intToBitSet(this.OPERATOR1);
+				temp.and(Util.intToBitSet(this.OPERATOR2));
+				this.RESULT = Util.bitSetToInt(temp);
+				
+				System.out.println("and " + this.RESULT);
 			}
-			else if (funct == 1) {  // or
-				System.out.println("or");
+			else if (funct == 37) {  // or
+				BitSet temp = Util.intToBitSet(this.OPERATOR1);
+				temp.or(Util.intToBitSet(this.OPERATOR2));
+				this.RESULT = Util.bitSetToInt(temp);
+				
+				System.out.println("or " + this.RESULT);
 			}
-			else if (funct == 2) {  //add
-				System.out.println("add");
+			else if (funct == 32) {  //add
+				this.RESULT = this.OPERATOR1 + this.OPERATOR2;
+				
+				System.out.println("add " + this.RESULT);
 			}
-			else if (funct == 6) {   //sub
-				System.out.println("sub");
+			else if (funct == 34) {   //sub
+				this.RESULT = this.OPERATOR1 - this.OPERATOR2;
+				
+				System.out.println("sub " + this.RESULT);
 			}
 			
 				
@@ -51,16 +70,10 @@ public class ALU {
 			System.out.println("lw e sw");
 		}
 		else if (id == 1) { 	// beq
+			this.ZERO = this.OPERATOR1 == this.OPERATOR2;
 			System.out.println("beq");
 		}
 			
-//			sinais de controle
-//			operação
-//			000 AND
-//			001 OR
-//			010 add
-//			110 sub
-//			111 set on less than
 
 			
 	}

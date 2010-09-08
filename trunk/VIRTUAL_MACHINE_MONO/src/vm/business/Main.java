@@ -22,10 +22,9 @@ public class Main {
 		try {
 			
 			String filePath = FileLoader.chooseFile();
-			FileLoader.load(filePath);
 			
 			DataPath dataPath = new DataPath();
-			dataPath.setInstructionMemory(FileLoader.instruction);
+			dataPath.setInstructionMemory(FileLoader.load(filePath));
 			dataPath.run();
 		
 		} catch (IOException e) {
