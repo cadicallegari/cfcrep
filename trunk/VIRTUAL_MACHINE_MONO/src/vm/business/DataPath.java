@@ -57,7 +57,7 @@ public class DataPath {
 	 */
 	public void run() {
 		
-		DataPath.PC = 44;
+		DataPath.PC = 0;
 		
 		BitSet wregister;			//temporaria para guardar a escolha do registrador de destino
 		BitSet jumpAddress;			//temporaria para guardar o endereço de desvio end + pc + 4 
@@ -81,11 +81,12 @@ public class DataPath {
 		//unidade de controle se prepara para instruçao
 		this.control.setOp(this.instruction_current.OP);
 		
-		//TODO calcular jump address j_address sh 2 + pc + 4
+		//TODO calcular jump address j_address sh 2 + pc + 4 POSSIVELMENTE ERRADO
 		pc4 = Adder.add(DataPath.PC, 4);
 		jumpAddressExtended = this.shiftLeft2(Util.bitSetToInt(this.instruction_current.J_ADDRESS));
 		System.out.println(Util.bitSetToInt(this.instruction_current.J_ADDRESS) + " endereco " + jumpAddressExtended);
 		jumpAddress = this.calculateJumpAddress(jumpAddressExtended, pc4);
+		System.out.println(Util.bitSetToInt(jumpAddress));
 		
 		//rs e rt servem de entrada para banco de registradores
 		this.registers.READ_REGISTER_1 = Util.bitSetToInt(this.instruction_current.RS);
@@ -93,8 +94,8 @@ public class DataPath {
 		
 		//multiplexador descide com base no REGDST o valor de WRITE REGISTER
 		wregister = MUX.choise(this.control.RegDst, 
-									this.instruction_current.RT, 
-									this.instruction_current.RD);
+									this.instruction_current.RD, 
+									this.instruction_current.RT);
 		this.registers.WRITE_REGISTER = Util.bitSetToInt(wregister);
 		
 		//extende o sinal e faz o shift left de 2 do endereço da instruçao do tipo I
@@ -138,13 +139,16 @@ public class DataPath {
 		//porta and
 		resultAnd = this.control.Branch && this.alu.ZERO;
 		
+		//primeiro multiplexador do endereço
 		end = MUX.choise(resultAnd, pc4_SignalExtended, pc4);
 		
+		//segundo multiplexador do endereço
 		DataPath.PC = MUX.choise(this.control.Jump, jumpAddressSignalExtended, end);
 		
 		//escreve ou nao no registrador de acordo com o sinal REGWRITE
 		this.registers.execute(this.control.RegWrite);
 		
+		System.out.println(alu.RESULT);
 	}
 
 	
