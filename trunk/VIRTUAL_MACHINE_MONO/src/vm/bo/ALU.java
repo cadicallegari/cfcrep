@@ -17,9 +17,9 @@ import vm.especification.VMEspecification;
  */
 public class ALU {
 	
-	public int OPERATOR1;
-	public int OPERATOR2;
-	public int RESULT;
+	public int OPERATOR1 = 0;
+	public int OPERATOR2 = 0;
+	public int RESULT = 0;
 	public boolean ZERO;
 	
 	
@@ -33,6 +33,10 @@ public class ALU {
 		
 		System.out.println(id);
 		
+		//atribui o valor do segundo operador sempre ao resultado
+		this.RESULT = this.OPERATOR2;
+		
+		//se for uma instruçao do tipo R
 		if (id == VMEspecification.ALUOP_RTYPE) {
 			int funct = Util.bitSetToInt(aluControl.FUNCT);
 			
@@ -73,7 +77,7 @@ public class ALU {
 			this.ZERO = this.OPERATOR1 == this.OPERATOR2;
 			System.out.println("beq");
 		}
-			
+		
 
 			
 	}
