@@ -6,6 +6,10 @@
  */
 package vm.test;
 
+import java.util.BitSet;
+
+import vm.business.Util;
+
 /**
  * @author cadi
  *
@@ -16,13 +20,12 @@ public class Teste {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		int num = 2;
-		
-		int sh = num << 2;
-		int mul = num * 4;
-		
-		System.out.println("sh " + sh + " mul " + mul);
+
+		BitSet b = new BitSet(31);
+		b.set(5);
+		int s = 0;
+		s = Util.bitSetToInt(b);
+		System.out.println(s);
 		
 	}
 

@@ -57,7 +57,7 @@ public class DataPath {
 	 */
 	public void run() {
 		
-		DataPath.PC = 0;
+//		DataPath.PC = 0;
 		
 		BitSet wregister;			//temporaria para guardar a escolha do registrador de destino
 		BitSet jumpAddress;			//temporaria para guardar o endereço de desvio end + pc + 4 
@@ -78,7 +78,7 @@ public class DataPath {
 			return;
 		}
 		
-		//unidade de controle se prepara para instruçao
+		//unidade de controle se prepara para executar a instruçao
 		this.control.setOp(this.instruction_current.OP);
 		
 		//TODO calcular jump address j_address sh 2 + pc + 4 POSSIVELMENTE ERRADO

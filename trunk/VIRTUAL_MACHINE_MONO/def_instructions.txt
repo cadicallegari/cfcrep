@@ -4,15 +4,18 @@ sub 			op = 0 funct = 34
 and 			op = 0 funct = 36 
 or 				op = 0 funct = 37 
 
+*jr				op =  3   		//jump register | jump $ra
+
+
 	I type
 
 lw 				op = 35   
 sw 				op = 43 
 beq 			op =  4  
 bne 			op =  5 
-li				op = 21  			//load imidiete | 
+li				op = 21  			//load imidiete | rt = imidiete
+
 
 	J Type
-j				op =  funct =  		//jump          | jump label
-jal				op =  funct =      	//jump and link | $ra = pc + 4 && jump label
-jr				op =  funct =  		//jump register | jump $ra
+j				op =  2   		//jump          | jump label
+jal				op =  6       	//jump and link | $ra = pc + 4 && jump label

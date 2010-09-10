@@ -25,8 +25,16 @@ public class Main {
 			
 			DataPath dataPath = new DataPath();
 			dataPath.setInstructionMemory(FileLoader.load(filePath));
+			
 			dataPath.run();
 		
+			dataPath.PC = 32;
+			dataPath.run();			
+			
+			dataPath.PC = 20;
+			dataPath.run();			
+	
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
