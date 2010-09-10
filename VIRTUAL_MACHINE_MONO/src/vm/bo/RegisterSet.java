@@ -44,7 +44,8 @@ public class RegisterSet {
 	 */
 	public void execute(boolean regWrite) {
 		if (regWrite) {
-			this.content[this.WRITE_REGISTER] = Util.bitSetToInt(this.WRITE_DATA);
+			int i = Util.bitSetToInt(this.WRITE_DATA);
+			this.content[this.WRITE_REGISTER] = i;
 		}
 	}
 	
