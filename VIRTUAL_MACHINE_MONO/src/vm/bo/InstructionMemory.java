@@ -78,7 +78,8 @@ public class InstructionMemory {
 		
 		System.out.println(str);
 		System.out.println("op code " + Util.bitSetToInt(op));
-		System.out.println("op code " + Util.bitSetToInt(instruction.FUNCT));
+		System.out.println("funct " + Util.bitSetToInt(instruction.FUNCT));
+		System.out.println("const " + Util.bitSetToInt(instruction.ADDRESS));
 		
 		return instruction;
 		
@@ -94,7 +95,7 @@ public class InstructionMemory {
 		BitSet address = new BitSet(15);
 		int index = 15;
 		
-		for (int i = 0; i < 16; i++) {
+		for (int i = 16; i < 32; i++) {
 			if (str.charAt(i) == '0') {
 				address.clear(index);
 			}
@@ -107,28 +108,6 @@ public class InstructionMemory {
 		return address;
 	}
 
-	/**
-	 * @param str
-	 * @return
-	 */
-	private BitSet getJADRESS(String str) {
-		BitSet rt = new BitSet(25);
-		int index = 25;
-		
-		for (int i = 0; i < 26; i++) {
-			if (str.charAt(i) == '0') {
-				rt.clear(index);
-			}
-			else if (str.charAt(i) == '1') {
-				rt.set(index);
-			}
-			index--;
-		}
-		
-		return rt;
-	}
-
-	
 	
 	/**
 	 * @return
@@ -149,6 +128,31 @@ public class InstructionMemory {
 		
 		return rt;
 	}
+	
+	
+	
+	/**
+	 * @param str
+	 * @return
+	 */
+	private BitSet getJADRESS(String str) {
+		BitSet rt = new BitSet(25);
+		int index = 25;
+		
+		for (int i = 0; i < 26; i++) {
+			if (str.charAt(i) == '0') {
+				rt.clear(index);
+			}
+			else if (str.charAt(i) == '1') {
+				rt.set(index);
+			}
+			index--;
+		}
+		
+		return rt;
+	}
+	
+	
 
 	/**
 	 * @param str
@@ -193,6 +197,8 @@ public class InstructionMemory {
 		return shamt;
 	}
 
+	
+	
 	/**
 	 * @param str
 	 * @return
@@ -214,6 +220,8 @@ public class InstructionMemory {
 		return rt;
 	}
 
+	
+	
 	/**
 	 * @param str
 	 * @return
