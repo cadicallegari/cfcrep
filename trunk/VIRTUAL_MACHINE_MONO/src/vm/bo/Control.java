@@ -53,11 +53,69 @@ public class Control {
 		else if (this.opCode == VMEspecification.OP_CODE_BEQ) {
 			this.setSignalToBEQ();
 		}
-		
+		else if (this.opCode == VMEspecification.OP_CODE_J) {
+			this.setSignalToJ();
+		}
+		else if (this.opCode == VMEspecification.OP_CODE_JR) {
+			this.setSignalToJR();
+		}
+		else if (this.opCode == VMEspecification.OP_CODE_JAL) {
+			this.setSignalToJAL();
+		}
+		else if (this.opCode == VMEspecification.OP_CODE_LI) {
+			this.setSignalToLI();
+		}
+		//TODO Aqui adiciona as instruçoes
 	}
 	
 	
 	
+	/**
+	 * 
+	 */
+	private void setSignalToLI() {
+		this.ALUSrc 	= true;
+		this.RegWrite 	= true;
+		this.RegDst 	= false;
+		this.MemWrite 	= false;
+		this.Branch 	= false;
+		this.MemtoReg 	= false;
+		this.MemRead 	= false;
+		this.ALUOp.clear();
+	}
+
+
+
+	/**
+	 * 
+	 */
+	private void setSignalToJAL() {
+		// TODO Auto-generated method stub
+		System.out.println("jal");
+	}
+
+
+
+	/**
+	 * 
+	 */
+	private void setSignalToJR() {
+		// TODO Auto-generated method stub
+		System.out.println("jr");
+	}
+
+
+
+	/**
+	 * 
+	 */
+	private void setSignalToJ() {
+		// TODO Auto-generated method stub
+		System.out.println("j");
+	}
+
+
+
 	/**
 	 * 
 	 */
