@@ -13,6 +13,8 @@ import java.util.BitSet;
  *
  */
 public class Instruction {
+
+	private String strInstruciton;
 	
 	//Para todos os tipos
 	public BitSet OP;
@@ -32,6 +34,7 @@ public class Instruction {
 	
 	//Para tipo J
 	public BitSet J_ADDRESS;
+
 	
 	public Instruction() {
 		
@@ -40,5 +43,21 @@ public class Instruction {
 	public Instruction(BitSet op) {
 		this.OP = op;
 	}
+	
+
+	/**
+	 * @return the strInstruciton
+	 */
+	public String getStrInstruciton() {
+		return strInstruciton;
+	}
+
+	/**
+	 * @param strInstruciton the strInstruciton to set
+	 */
+	public void setStrInstruciton(String strInstruciton) {
+		this.strInstruciton = strInstruciton;
+	}
+
 	
 }

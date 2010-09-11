@@ -34,7 +34,7 @@ public class DataPath {
 	private ALUControl aluControl = new ALUControl();
 	private ALU alu = new ALU();
 	
-	public static int PC;
+	public static Integer PC;
 	
 	
 	
@@ -56,8 +56,6 @@ public class DataPath {
 	 * 
 	 */
 	public void run() {
-		
-//		DataPath.PC = 0;
 		
 		BitSet wregister;			//temporaria para guardar a escolha do registrador de destino
 		BitSet jumpAddress;			//temporaria para guardar o endereço de desvio end + pc + 4 
@@ -197,6 +195,59 @@ public class DataPath {
 	private int shiftLeft2(int i) {
 		return i * 4;
 	}
+	
+
+	
+	public String getCurrentInstruction() {
+		return this.instruction_current.getStrInstruciton();
+	}
+	
+	public String getRegDst() {
+		return Util.booleanToString(this.control.RegDst);
+	}
+	
+	public String getJump() {
+		return Util.booleanToString(this.control.Jump);
+	}
+	
+	public String getBranch() {
+		return Util.booleanToString(this.control.Branch);
+	}
+	
+	public String getMemRead() {
+		return Util.booleanToString(this.control.MemRead);
+	}
+	
+	public String getMemtoReg() {
+		return Util.booleanToString(this.control.MemtoReg);
+	}
+	
+	public String getALUOp() {
+		String str = "";
+		
+		str = str.concat(Util.booleanToString(this.control.ALUOp.get(0)));
+		str = str.concat(Util.booleanToString(this.control.ALUOp.get(1)));
+		
+		return str;
+	}
+	
+	public String getMemWrite() {
+		return Util.booleanToString(this.control.MemWrite);
+	}
+	
+	public String getALUSrc() {
+		return Util.booleanToString(this.control.ALUSrc);
+	}
+	
+	public String getRegWrite() {
+		return Util.booleanToString(this.control.RegWrite);
+	}
+	
+	public String getZero() {
+		return Util.booleanToString(this.alu.ZERO);
+	}
+	
+	
 	
 	
 //	private int extensorDeSinal(int end) {

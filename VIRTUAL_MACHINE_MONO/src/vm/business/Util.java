@@ -46,6 +46,24 @@ public class Util {
 		}
 		return bs;
 	}
+
+
+	/**
+	 * @param regDst
+	 * @return
+	 */
+	public static String booleanToString(boolean b) {
+		
+		String str = null;
+		
+		if (b) {
+			str = "1";
+		} else {
+			str = "0";
+		}
+		
+		return str;
+	}
 	
 	
 }
