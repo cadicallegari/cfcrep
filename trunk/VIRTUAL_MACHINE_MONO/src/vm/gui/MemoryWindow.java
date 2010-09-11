@@ -11,6 +11,8 @@
 
 package vm.gui;
 
+import vm.bo.DataMemory;
+
 /**
  *
  * @author cadi
@@ -30,6 +32,8 @@ public class MemoryWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,6 +59,14 @@ public class MemoryWindow extends javax.swing.JFrame {
             }
         });
     }
+
+	/**
+	 * @param dataMemory
+	 */
+	public void updateTable(DataMemory dataMemory) {
+		//TODO
+		System.out.println("atualizar tabela da memoria");
+	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -246,6 +246,22 @@ public class DataPath {
 	public String getZero() {
 		return Util.booleanToString(this.alu.ZERO);
 	}
+
+
+	/**
+	 * @return
+	 */
+	public RegisterSet getRegisterSet() {
+		return this.registers;
+	}
+
+
+	/**
+	 * @return
+	 */
+	public DataMemory getDataMemory() {
+		return this.dataMemory;
+	}
 	
 	
 	

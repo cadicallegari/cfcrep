@@ -11,12 +11,19 @@
 
 package vm.gui;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import vm.bo.RegisterSet;
+
 /**
  *
  * @author cadi
  */
 public class RegisterWindow extends javax.swing.JFrame {
 
+	DefaultTableModel modeloTabela;
+	
     /** Creates new form RegisterWindow */
     public RegisterWindow() {
         initComponents();
@@ -40,20 +47,28 @@ public class RegisterWindow extends javax.swing.JFrame {
 
         mainPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
-        jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Registradores"));
+        jScrollPane1.setAutoscrolls(true);
 
         tabela.setAutoCreateColumnsFromModel(false);
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tabela.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.black, new java.awt.Color(1, 1, 1)));
+        
+        String[] colunas = new String[] { "Registrador", "Valor Inteiro", "Valor Binario"};
+		String[][] dados = new String[][] {};
+
+		modeloTabela = new DefaultTableModel(dados, colunas) {
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		tabela = new JTable(modeloTabela);
+		modeloTabela = (DefaultTableModel) tabela.getModel();
+        
+		this.initTable();
+		
         jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -87,7 +102,31 @@ public class RegisterWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     /**
+	 * 
+	 */
+	private void initTable() {
+		String str;
+		
+		for (int i = 0; i < 8; i++) {
+			modeloTabela.addRow(new String[] { "" ,"", ""});	
+		}
+		
+		for (int i = 8; i < 16; i++) {
+			str = "$t" + (i - 8);
+			modeloTabela.addRow(new String[] { str ,"", ""});	
+		}
+
+		for (int i = 16; i < 24; i++) {
+			str = "$s" + (i - 16);
+			modeloTabela.addRow(new String[] { str ,"", ""});	
+		}
+		
+	}
+
+	/**
     * @param args the command line arguments
     */
     public static void main(String args[]) {
@@ -97,6 +136,14 @@ public class RegisterWindow extends javax.swing.JFrame {
             }
         });
     }
+
+
+   public void updateTable(RegisterSet rs) {	   
+		
+
+   
+   }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

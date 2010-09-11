@@ -26,7 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
 	private DataPath dataPath = new DataPath();
 	private String filePath = null;
 	private MemoryWindow memoryWindow = new MemoryWindow();
-	private RegisterWindow registerWindows = new RegisterWindow();
+	private RegisterWindow registerWindow = new RegisterWindow();
 
 	
     /** Creates new form MainWindow */
@@ -291,7 +291,8 @@ public class MainWindow extends javax.swing.JFrame {
     		
     		this.dataPath.run();
     		this.updateComponets();
-    		
+    		this.registerWindow.updateTable(this.dataPath.getRegisterSet());
+    		this.memoryWindow.updateTable(this.dataPath.getDataMemory());
     		MainWindow.setStatus("Instrução Executada");
     	}
     	
@@ -377,7 +378,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void menuItemRegistradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRegistradoresActionPerformed
 
-		this.registerWindows.setVisible(true);
+		this.registerWindow.setVisible(true);
     	
     }//GEN-LAST:event_menuItemRegistradoresActionPerformed
 
