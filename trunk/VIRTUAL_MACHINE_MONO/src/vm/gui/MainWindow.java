@@ -11,12 +11,23 @@
 
 package vm.gui;
 
+import java.io.IOException;
+
+import vm.bo.InstructionMemory;
+import vm.business.DataPath;
+import vm.business.FileLoader;
+
 /**
  *
  * @author cadi
  */
 public class MainWindow extends javax.swing.JFrame {
 
+	
+	private DataPath dataPath = new DataPath();
+	private String filePath = null;
+
+	
     /** Creates new form MainWindow */
     public MainWindow() {
         initComponents();
@@ -38,6 +49,7 @@ public class MainWindow extends javax.swing.JFrame {
         descInstruAtual = new javax.swing.JLabel();
         labelInstruAtual = new javax.swing.JLabel();
         bottomPanel = new javax.swing.JPanel();
+        status = new javax.swing.JLabel();
         buttonExecute = new javax.swing.JButton();
         leftPanel = new javax.swing.JPanel();
         dsRegDst = new javax.swing.JLabel();
@@ -55,12 +67,11 @@ public class MainWindow extends javax.swing.JFrame {
         dsMemWrite = new javax.swing.JLabel();
         labelMemWrite = new javax.swing.JLabel();
         dsALUSrc = new javax.swing.JLabel();
-        labemALUSrc = new javax.swing.JLabel();
+        labelALUSrc = new javax.swing.JLabel();
         dsRegWrite = new javax.swing.JLabel();
         labelRegWrite = new javax.swing.JLabel();
         dsZero = new javax.swing.JLabel();
         labelZero = new javax.swing.JLabel();
-        rightPanel = new javax.swing.JPanel();
         centerPanel = new javax.swing.JPanel();
         labelImage = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
@@ -76,10 +87,11 @@ public class MainWindow extends javax.swing.JFrame {
         setTitle("MAQUINA VIRTUAL MONOCICLO MUITO LOCA");
         setResizable(false);
 
-        mainPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        mainPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         mainPanel.setLayout(new java.awt.BorderLayout(2, 2));
 
-        upPanel.setLayout(new java.awt.GridLayout(2, 2, 0, 2));
+        upPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 5, 1, 1));
+        upPanel.setLayout(new java.awt.GridLayout(2, 2, 0, 12));
 
         descPC.setText("PC :");
         upPanel.add(descPC);
@@ -95,14 +107,25 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainPanel.add(upPanel, java.awt.BorderLayout.PAGE_START);
 
-        bottomPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        bottomPanel.setLayout(new java.awt.GridLayout(1, 2, 25, 0));
+
+        status.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        status.setText("Aguardando...");
+        bottomPanel.add(status);
 
         buttonExecute.setText("Executar");
-        buttonExecute.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        buttonExecute.setMaximumSize(new java.awt.Dimension(47, 7));
+        buttonExecute.setMinimumSize(new java.awt.Dimension(47, 7));
+        buttonExecute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExecuteActionPerformed(evt);
+            }
+        });
         bottomPanel.add(buttonExecute);
 
         mainPanel.add(bottomPanel, java.awt.BorderLayout.PAGE_END);
 
+        leftPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         leftPanel.setLayout(new java.awt.GridLayout(10, 2, 5, 0));
 
         dsRegDst.setText("RegDst:");
@@ -138,7 +161,7 @@ public class MainWindow extends javax.swing.JFrame {
         dsALUOp.setText("ALUOp:");
         leftPanel.add(dsALUOp);
 
-        labelALUOp.setText("0");
+        labelALUOp.setText("00");
         leftPanel.add(labelALUOp);
 
         dsMemWrite.setText("MemWrite:");
@@ -150,8 +173,8 @@ public class MainWindow extends javax.swing.JFrame {
         dsALUSrc.setText("ALUSrc:");
         leftPanel.add(dsALUSrc);
 
-        labemALUSrc.setText("0");
-        leftPanel.add(labemALUSrc);
+        labelALUSrc.setText("0");
+        leftPanel.add(labelALUSrc);
 
         dsRegWrite.setText("RegWrite:");
         leftPanel.add(dsRegWrite);
@@ -167,19 +190,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainPanel.add(leftPanel, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
-        rightPanel.setLayout(rightPanelLayout);
-        rightPanelLayout.setHorizontalGroup(
-            rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        rightPanelLayout.setVerticalGroup(
-            rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
-        );
-
-        mainPanel.add(rightPanel, java.awt.BorderLayout.LINE_END);
-
         labelImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vm_imagem.png"))); // NOI18N
         centerPanel.add(labelImage);
@@ -192,11 +202,21 @@ public class MainWindow extends javax.swing.JFrame {
         menuItemAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         menuItemAbrir.setMnemonic('a');
         menuItemAbrir.setText("Carregar Instruções");
+        menuItemAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAbrirActionPerformed(evt);
+            }
+        });
         menuArquivo.add(menuItemAbrir);
 
         menuItemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         menuItemSair.setMnemonic('s');
         menuItemSair.setText("Sair");
+        menuItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSairActionPerformed(evt);
+            }
+        });
         menuArquivo.add(menuItemSair);
 
         menuBar.add(menuArquivo);
@@ -207,11 +227,21 @@ public class MainWindow extends javax.swing.JFrame {
         menuItemRegistradores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK));
         menuItemRegistradores.setMnemonic('r');
         menuItemRegistradores.setText("Registradores");
+        menuItemRegistradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRegistradoresActionPerformed(evt);
+            }
+        });
         menuExibir.add(menuItemRegistradores);
 
         menuItemMemoria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK));
         menuItemMemoria.setMnemonic('m');
         menuItemMemoria.setText("Memória");
+        menuItemMemoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMemoriaActionPerformed(evt);
+            }
+        });
         menuExibir.add(menuItemMemoria);
 
         menuBar.add(menuExibir);
@@ -226,7 +256,7 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1090, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1090, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,6 +268,123 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    public static void setStatus(String s) {
+    	
+    	if (status != null) {
+    		status.setText(s);
+    	}
+    	
+    }
+    
+    
+    private void buttonExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExecuteActionPerformed
+    	
+    	if (this.filePath == null) {
+    		System.out.println("é necessario carregar um arquivo com as instruçoes primeiro");
+    		MainWindow.setStatus("Carregue um arquivo primeiro!");
+    	} 
+    	else {
+    		MainWindow.setStatus("Executando Instrução");
+    		
+    		this.dataPath.run();
+    		this.updateComponets();
+    		
+    		MainWindow.setStatus("Instrução Executada");
+    	}
+    	
+    }//GEN-LAST:event_buttonExecuteActionPerformed
+
+    
+    
+    
+    /**
+	 * 
+	 */
+	private void updateComponets() {
+		
+		//PC
+		this.labelPC.setText(this.dataPath.PC.toString());
+		
+		//Instruçao atual
+		this.labelInstruAtual.setText(this.dataPath.getCurrentInstruction());
+		
+		//RegDst
+		this.labelRegDst.setText(this.dataPath.getRegDst());
+		//Jump
+		this.labelJump.setText(this.dataPath.getJump());
+		//Branch
+		this.labelBranch.setText(this.dataPath.getBranch());
+		//MemRead
+		this.labelMemRead.setText(this.dataPath.getMemRead());
+		//MemToReg
+		this.labelMemtoReg.setText(this.dataPath.getMemtoReg());
+		//ALUOp
+		this.labelALUOp.setText(this.dataPath.getALUOp());
+		//MemWrite
+		this.labelALUOp.setText(this.dataPath.getMemWrite());
+		//ALUSrc
+		this.labelALUSrc.setText(this.dataPath.getALUSrc());
+		//RegWrite
+		this.labelRegWrite.setText(this.dataPath.getRegWrite());
+		//Zero
+		this.labelZero.setText(this.dataPath.getZero());
+		
+		System.out.println("aloooooooooooooooooouuu");
+		System.out.println(this.dataPath.getALUSrc());
+		System.out.println(this.dataPath.getRegWrite());
+	}
+
+	
+	
+	private void menuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAbrirActionPerformed
+		
+		try {
+			
+			this.filePath = FileLoader.chooseFile();
+			this.dataPath.setInstructionMemory(FileLoader.load(this.filePath));
+			
+			MainWindow.setStatus("Arquivo carregado com sucesso!");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			MainWindow.setStatus("Falha ao carregar arquivo!");
+			e.printStackTrace();
+		}
+    	
+    }//GEN-LAST:event_menuItemAbrirActionPerformed
+
+    
+    
+    
+    private void menuItemMemoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMemoriaActionPerformed
+    	
+    	System.out.println("executar mostrar memoria");
+    	
+    }//GEN-LAST:event_menuItemMemoriaActionPerformed
+
+    
+    
+    
+    private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
+    
+    	MainWindow.setStatus("Bye Bye");
+    	System.exit(NORMAL);
+    
+    }//GEN-LAST:event_menuItemSairActionPerformed
+
+    
+    
+    private void menuItemRegistradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRegistradoresActionPerformed
+
+    	System.out.println("executar mostrar registradores");
+    	
+    }//GEN-LAST:event_menuItemRegistradoresActionPerformed
+
+    
+    
+    
     /**
     * @param args the command line arguments
     */
@@ -266,6 +413,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel dsRegWrite;
     private javax.swing.JLabel dsZero;
     private javax.swing.JLabel labelALUOp;
+    private javax.swing.JLabel labelALUSrc;
     private javax.swing.JLabel labelBranch;
     private javax.swing.JLabel labelImage;
     private javax.swing.JLabel labelInstruAtual;
@@ -277,7 +425,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel labelRegDst;
     private javax.swing.JLabel labelRegWrite;
     private javax.swing.JLabel labelZero;
-    private javax.swing.JLabel labemALUSrc;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenu menuAjuda;
@@ -288,7 +435,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemMemoria;
     private javax.swing.JMenuItem menuItemRegistradores;
     private javax.swing.JMenuItem menuItemSair;
-    private javax.swing.JPanel rightPanel;
+    private static javax.swing.JLabel status;
     private javax.swing.JPanel upPanel;
     // End of variables declaration//GEN-END:variables
 

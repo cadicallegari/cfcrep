@@ -76,6 +76,8 @@ public class InstructionMemory {
 		
 		instruction.J_ADDRESS = this.getJADRESS(str);
 		
+		instruction.setStrInstruciton(str);
+		
 		System.out.println(str);
 		System.out.println("op code " + Util.bitSetToInt(op));
 		System.out.println("funct " + Util.bitSetToInt(instruction.FUNCT));
