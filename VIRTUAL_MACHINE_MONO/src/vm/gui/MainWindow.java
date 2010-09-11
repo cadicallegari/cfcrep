@@ -13,7 +13,6 @@ package vm.gui;
 
 import java.io.IOException;
 
-import vm.bo.InstructionMemory;
 import vm.business.DataPath;
 import vm.business.FileLoader;
 
@@ -26,6 +25,8 @@ public class MainWindow extends javax.swing.JFrame {
 	
 	private DataPath dataPath = new DataPath();
 	private String filePath = null;
+	private MemoryWindow memoryWindow = new MemoryWindow();
+	private RegisterWindow registerWindows = new RegisterWindow();
 
 	
     /** Creates new form MainWindow */
@@ -357,7 +358,8 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void menuItemMemoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMemoriaActionPerformed
     	
-    	System.out.println("executar mostrar memoria");
+		this.memoryWindow.setVisible(true);
+    	
     	
     }//GEN-LAST:event_menuItemMemoriaActionPerformed
 
@@ -375,7 +377,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void menuItemRegistradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRegistradoresActionPerformed
 
-    	System.out.println("executar mostrar registradores");
+		this.registerWindows.setVisible(true);
     	
     }//GEN-LAST:event_menuItemRegistradoresActionPerformed
 
