@@ -323,7 +323,7 @@ public class MainWindow extends javax.swing.JFrame {
 		//ALUOp
 		this.labelALUOp.setText(this.dataPath.getALUOp());
 		//MemWrite
-		this.labelALUOp.setText(this.dataPath.getMemWrite());
+		this.labelMemWrite.setText(this.dataPath.getMemWrite());
 		//ALUSrc
 		this.labelALUSrc.setText(this.dataPath.getALUSrc());
 		//RegWrite
@@ -331,9 +331,6 @@ public class MainWindow extends javax.swing.JFrame {
 		//Zero
 		this.labelZero.setText(this.dataPath.getZero());
 		
-		System.out.println("aloooooooooooooooooouuu");
-		System.out.println(this.dataPath.getALUSrc());
-		System.out.println(this.dataPath.getRegWrite());
 	}
 
 	
