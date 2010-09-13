@@ -74,14 +74,16 @@ public class Control {
 	 * 
 	 */
 	private void setSignalToLI() {
+		this.RegDst 	= false;
+		this.Jump		= false;
+		this.Branch 	= false;
+		this.MemRead 	= false;
+		this.MemtoReg 	= false;
+		this.ALUOp.clear();
+		this.MemWrite 	= false;
 		this.ALUSrc 	= true;
 		this.RegWrite 	= true;
-		this.RegDst 	= false;
-		this.MemWrite 	= false;
-		this.Branch 	= false;
-		this.MemtoReg 	= false;
-		this.MemRead 	= false;
-		this.ALUOp.clear();
+		
 	}
 
 
@@ -127,13 +129,16 @@ public class Control {
 	 * 
 	 */
 	private void setSignalToBEQ() {
-		this.ALUSrc 	= false;
-		this.RegWrite 	= false;
-		this.MemRead 	= false;
-		this.MemWrite 	= false;
+		this.RegDst 	= false;
+		this.Jump		= false;
 		this.Branch 	= true;
+		this.MemRead 	= false;
+		this.MemtoReg 	= false;
 		this.ALUOp.set(0);
 		this.ALUOp.clear(1);
+		this.MemWrite 	= false;
+		this.ALUSrc 	= false;
+		this.RegWrite 	= false;
 	}
 	
 	
@@ -142,29 +147,31 @@ public class Control {
 	 * 
 	 */
 	private void setSignalToSW() {
-		this.MemWrite 	= true;
+		this.RegDst 	= false;
+		this.Jump		= false;
 		this.Branch 	= false;
-		this.ALUOp.clear();
-//		this.ALUOp0 	= false;
-//		this.ALUOp1 	= false;
-		this.ALUSrc 	= true;
-		this.RegWrite 	= false;
 		this.MemRead 	= false;
+		this.MemtoReg 	= false;
+		this.ALUOp.clear();
+		this.MemWrite 	= true;
+		this.ALUSrc 	= false;
+		this.RegWrite 	= false;
+	
 	}
 	/**
 	 * 
 	 */
 	private void setSignalToLW() {
 		this.RegDst 	= false;
-		this.MemWrite 	= false;
+		this.Jump		= false;
 		this.Branch 	= false;
-		this.ALUOp.clear();
-//		this.ALUOp0 	= false;
-//		this.ALUOp1 	= false;
-		this.ALUSrc 	= true;
-		this.MemtoReg 	= true;
-		this.RegWrite 	= true;
 		this.MemRead 	= true;
+		this.MemtoReg 	= true;
+		this.ALUOp.clear();
+		this.MemWrite 	= false;
+		this.ALUSrc 	= true;
+		this.RegWrite 	= true;
+	
 	}
 
 	
