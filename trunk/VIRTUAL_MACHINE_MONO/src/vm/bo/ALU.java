@@ -74,12 +74,10 @@ public class ALU {
 			this.ZERO = this.OPERATOR1 == this.OPERATOR2;
 			System.out.println("beq");
 		}
-//		else if (id == 0) {   // lw e sw
-//      	//TODO
-//		}
-		
-
-			
+		else if (id == 3) {    //bne
+			this.ZERO = this.OPERATOR1 != this.OPERATOR2;
+			System.out.println("bne");
+		}
 	}
 
 }
