@@ -314,7 +314,11 @@ public class MainWindow extends javax.swing.JFrame {
 		this.labelPC.setText(this.dataPath.PC.toString());
 		
 		//Instruçao atual
-		this.labelInstruAtual.setText(this.dataPath.getCurrentInstruction());
+		String str = this.dataPath.getCurrentInstruction();
+		if (str == null) {
+			str = "None";
+		}
+		this.labelInstruAtual.setText(str);
 		
 		//RegDst
 		this.labelRegDst.setText(this.dataPath.getRegDst());
@@ -344,6 +348,9 @@ public class MainWindow extends javax.swing.JFrame {
 	private void menuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAbrirActionPerformed
 		
 		try {
+			
+			this.dataPath = new DataPath();
+			this.initComponents();
 			
 			this.filePath = FileLoader.chooseFile();
 			this.dataPath.setInstructionMemory(FileLoader.load(this.filePath));
