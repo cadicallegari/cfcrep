@@ -53,6 +53,9 @@ public class Control {
 		else if (this.opCode == VMEspecification.OP_CODE_BEQ) {
 			this.setSignalToBEQ();
 		}
+		else if (this.opCode == VMEspecification.OP_CODE_BNE) {
+			this.setSignalToBNE();
+		}
 		else if (this.opCode == VMEspecification.OP_CODE_J) {
 			this.setSignalToJ();
 		}
@@ -114,7 +117,7 @@ public class Control {
 	private void setSignalToJ() {
 		this.RegDst 	= false;
 		this.Jump		= true;
-		this.Branch 	= true;
+		this.Branch 	= false;
 		this.MemRead 	= false;
 		this.MemtoReg 	= false;
 		this.ALUOp.clear();
@@ -140,7 +143,20 @@ public class Control {
 		this.ALUSrc 	= false;
 		this.RegWrite 	= false;
 	}
+
 	
+	private void setSignalToBNE() {
+		this.RegDst 	= false;
+		this.Jump		= false;
+		this.Branch 	= true;
+		this.MemRead 	= false;
+		this.MemtoReg 	= false;
+		this.ALUOp.set(0);
+		this.ALUOp.set(1);
+		this.MemWrite 	= false;
+		this.ALUSrc 	= false;
+		this.RegWrite 	= false;
+	}
 	
 	
 	/**

@@ -60,11 +60,11 @@ public class DataPath {
 		BitSet wregister;			//temporaria para guardar a escolha do registrador de destino
 		BitSet jumpAddress;			//temporaria para guardar o endereço de desvio end + pc + 4 
 		BitSet writeData;			//guarda dado a ser escrito no banco de registradores
-		int jumpAddressExtended;	//guarda valor do endereço da instruçao com shift left de 2
+		int insAddrSh2;				//guarda valor do endereço da instruçao com shift left de 2
 		int pc4;					//guarda o valor de pc + 4
-		int pc4_SignalExtended;		//guarda valor da soma de pc+4 com o endereço com sh de 2
-		int jumpAddressSignalExtended; //guarda valor de desvio da instruçao com o sinal estendido para 32 bits
-		int jumpAddressI;			//guarda valor de desvio com sinal estendido e sh de 2
+		int pc4_insAddrSh2;			//guarda valor da soma de pc+4 com o endereço com sh de 2
+		int insAddr32Extended; 		//guarda valor de desvio da instruçao com o sinal estendido para 32 bits
+		int insAddr32ExtendedSh2;	//guarda valor de desvio com sinal estendido e sh de 2
 		int secondOperator;			//guarda valor da entrada do sengundo operador da ALU
 		int end;
 		boolean resultAnd;
@@ -81,9 +81,9 @@ public class DataPath {
 		
 		//TODO calcular jump address j_address sh 2 + pc + 4 POSSIVELMENTE ERRADO
 		pc4 = Adder.add(DataPath.PC, 4);
-		jumpAddressExtended = this.shiftLeft2(Util.bitSetToInt(this.instruction_current.J_ADDRESS));
-		System.out.println(Util.bitSetToInt(this.instruction_current.J_ADDRESS) + " endereco " + jumpAddressExtended);
-		jumpAddress = this.calculateJumpAddress(jumpAddressExtended, pc4);
+		insAddrSh2 = this.shiftLeft2(Util.bitSetToInt(this.instruction_current.J_ADDRESS));
+		System.out.println(Util.bitSetToInt(this.instruction_current.J_ADDRESS) + " endereco " + insAddrSh2);
+		jumpAddress = this.calculateJumpAddress(insAddrSh2, pc4);
 		System.out.println(Util.bitSetToInt(jumpAddress));
 		
 		//rs e rt servem de entrada para banco de registradores
@@ -97,11 +97,13 @@ public class DataPath {
 		this.registers.WRITE_REGISTER = Util.bitSetToInt(wregister);
 		
 		//extende o sinal e faz o shift left de 2 do endereço da instruçao do tipo I
-		jumpAddressSignalExtended = Util.bitSetToInt(this.signalExtend(this.instruction_current.ADDRESS));
-		jumpAddressI = this.shiftLeft2(jumpAddressSignalExtended);
+		insAddr32Extended = Util.bitSetToInt(this.signalExtend(this.instruction_current.ADDRESS));
+		insAddr32ExtendedSh2 = this.shiftLeft2(insAddr32Extended);
 		
 		//soma pc + 4 com endereco com o sinal estendido
-		pc4_SignalExtended = Adder.add(pc4, jumpAddressSignalExtended);
+		//pc4_SignalExtended = Adder.add(pc4, jumpAddressSignalExtended);
+		//TODO WARNING
+		pc4_insAddrSh2 = insAddr32Extended;
 		
 		//alimenta as entradas da ALU CONTROL
 		this.aluControl.FUNCT = this.instruction_current.FUNCT;
@@ -112,7 +114,7 @@ public class DataPath {
 		
 		//descide qual o segundo operador da ULA
 		secondOperator = MUX.choise(this.control.ALUSrc,
-									jumpAddressSignalExtended,
+									insAddr32Extended,
 									this.registers.readData2()
 									);
 		this.alu.OPERATOR2 = secondOperator;
@@ -150,15 +152,15 @@ public class DataPath {
 		resultAnd = this.control.Branch && this.alu.ZERO;
 		
 		//primeiro multiplexador do endereço
-		end = MUX.choise(resultAnd, pc4_SignalExtended, pc4);
+		end = MUX.choise(resultAnd, pc4_insAddrSh2, pc4);
 		
 		//segundo multiplexador do endereço
-		DataPath.PC = MUX.choise(this.control.Jump, jumpAddressSignalExtended, end);
+		DataPath.PC = MUX.choise(this.control.Jump, insAddr32Extended, end);
 		
 		//escreve ou nao no registrador de acordo com o sinal REGWRITE
 		this.registers.execute(this.control.RegWrite);
 		
-		System.out.println(alu.RESULT);
+		System.out.println(DataPath.PC);
 	}
 
 	

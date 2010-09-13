@@ -1,0 +1,9 @@
+0  lui $16, 1			//$s0 = 1				op = 0 funct =
+4  lui $17, 2			//$s1 = 2				op = 0 funct =
+8  lui $18, 4			//$s2 = 4				op = 0 funct =
+12 lui $20, 4			//$s2 = 4				op = 0 funct =
+16 beq $18, $20, 4		//PC = PC+4+8				op =  4
+12 bne $17, $16, 0		//PC = PC+4+4				op =  5
+24 j 0									op = 0 funct =
+28 NONE
+
