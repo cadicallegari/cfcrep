@@ -122,11 +122,19 @@ public class DataPath {
 		
 		//para contornar o problema da SW com o endereço da memoria invalido
 		if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_SW) {
+//			this.alu.RESULT = this.registers.READ_REGISTER_2 + Util.bitSetToInt(this.instruction_current.CONST);
 			this.alu.RESULT = this.registers.READ_REGISTER_2;
 		}
 		
+		//atribui o endereço de escrita e o valor a ser escrito na memoria
 		this.dataMemory.ADDRESS = this.alu.RESULT;
 		this.dataMemory.WRITEDATA = Util.intToBitSet(this.registers.readData2());
+
+		//para contornar o problema de endereço da LW
+		if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_LW) {
+			this.dataMemory.ADDRESS = Util.bitSetToInt(this.instruction_current.RS);
+			//TODO verificar endereços
+		}
 		
 		//de acordo com os sinais faz as operaçoes na memoria
 		this.dataMemory.execute(this.control.MemWrite, this.control.MemRead);
@@ -266,22 +274,5 @@ public class DataPath {
 	public DataMemory getDataMemory() {
 		return this.dataMemory;
 	}
-	
-	
-	
-	
-//	private int extensorDeSinal(int end) {
-//		//TODO erro em potencial
-//		if ((end & VMEspecification.EXTEND_INT) == VMEspecification.EXTEND_INT) {
-//			end &= ~VMEspecification.EXTEND_INT;
-//			end |= VMEspecification.EXTEND_INT;
-//		}
-//		return end;
-//	}
-
-
-
-
-	
 	
 }
