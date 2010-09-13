@@ -38,6 +38,9 @@ public class ALU {
 		
 		//se for uma instruçao do tipo R
 		if (id == VMEspecification.ALUOP_RTYPE) {
+			
+			this.ZERO = false;
+			
 			int funct = Util.bitSetToInt(aluControl.FUNCT);
 			
 			System.out.println("funct = " + funct);
