@@ -31,4 +31,9 @@ public class VMEspecification {
 	
 	public static final int ALUOP_RTYPE = 2;
 	
+	public static final int REG_BASE_T_INIT  = 8;
+	public static final int REG_BASE_T_FINAL = 16;
+	
+	public static final int REG_BASE_S_INIT  = 16;
+	public static final int REG_BASE_S_FINAL = 24;
 }

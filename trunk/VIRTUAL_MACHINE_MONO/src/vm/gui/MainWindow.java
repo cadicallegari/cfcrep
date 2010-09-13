@@ -32,6 +32,9 @@ public class MainWindow extends javax.swing.JFrame {
     /** Creates new form MainWindow */
     public MainWindow() {
         initComponents();
+        
+		this.registerWindow.updateTable(this.dataPath.getRegisterSet());
+		this.memoryWindow.updateTable(this.dataPath.getDataMemory());
     }
 
     /** This method is called from within the constructor to
@@ -293,6 +296,7 @@ public class MainWindow extends javax.swing.JFrame {
     		this.updateComponets();
     		this.registerWindow.updateTable(this.dataPath.getRegisterSet());
     		this.memoryWindow.updateTable(this.dataPath.getDataMemory());
+    		
     		MainWindow.setStatus("Instrução Executada");
     	}
     	
