@@ -1,21 +1,21 @@
 	R Type
-ok add    			op = 0 funct = 32 
-ok sub 			op = 0 funct = 34
-ok and 			op = 0 funct = 36 
-ok or 				op = 0 funct = 37 
+	ok add    			op = 0 funct = 32 
+	ok sub 			op = 0 funct = 34
+	ok and 			op = 0 funct = 36 
+	ok or 				op = 0 funct = 37 
 
-*jr				op =  3   		//jump register | jump $ra
+jr				op =  3   		//jump register | jump $ra
 
 
 	I type
 
 lw 				op = 35   
-sw 				op = 43 
+	ok sw 				op = 43 
 beq 			op =  4  
 bne 			op =  5 
-ok li				op = 21  			//load imidiete | rt = imidiete
+	ok li				op = 21  			//load imidiete | rt = imidiete
 
 
 	J Type
-j				op =  2   		//jump          | jump label
+	ok j				op =  2   		//jump          | jump label
 jal				op =  6       	//jump and link | $ra = pc + 4 && jump label
