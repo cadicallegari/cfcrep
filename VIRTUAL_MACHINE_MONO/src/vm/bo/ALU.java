@@ -75,7 +75,7 @@ public class ALU {
 			System.out.println("beq");
 		}
 //		else if (id == 0) {   // lw e sw
-//			System.out.println("lw e sw");
+//      	//TODO
 //		}
 		
 

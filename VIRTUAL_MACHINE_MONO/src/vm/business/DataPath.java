@@ -118,8 +118,12 @@ public class DataPath {
 		this.alu.OPERATOR2 = secondOperator;
 
 		//executa a operaçao na alu
-		//TODO
 		this.alu.execute(this.aluControl);
+		
+		//para contornar o problema da SW com o endereço da memoria invalido
+		if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_SW) {
+			this.alu.RESULT = this.registers.READ_REGISTER_2;
+		}
 		
 		this.dataMemory.ADDRESS = this.alu.RESULT;
 		this.dataMemory.WRITEDATA = Util.intToBitSet(this.registers.readData2());
