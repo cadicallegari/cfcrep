@@ -11,7 +11,13 @@
 
 package vm.gui;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import vm.bo.DataMemory;
+import vm.business.DataPath;
+import vm.business.Util;
+import vm.especification.VMEspecification;
 
 /**
  *
@@ -19,6 +25,10 @@ import vm.bo.DataMemory;
  */
 public class MemoryWindow extends javax.swing.JFrame {
 
+	DefaultTableModel modeloTabela;
+
+	
+	
     /** Creates new form MemoryWindow */
     public MemoryWindow() {
         initComponents();
@@ -33,17 +43,61 @@ public class MemoryWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mainPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+
+        setTitle("Memória");
         setResizable(false);
+
+        mainPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Memória de Dados"));
+        jScrollPane1.setAutoscrolls(true);
+
+        tabela.setAutoCreateColumnsFromModel(false);
+        tabela.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.black, new java.awt.Color(1, 1, 1)));
+
+        String[] colunas = new String[] { "Endereço", "Valor Inteiro", "Valor Binario"};
+		String[][] dados = new String[][] {};
+
+		modeloTabela = new DefaultTableModel(dados, colunas) {
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		tabela = new JTable(modeloTabela);
+		modeloTabela = (DefaultTableModel) tabela.getModel();
+        
+		this.initTable();
+        
+        jScrollPane1.setViewportView(tabela);
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -60,15 +114,38 @@ public class MemoryWindow extends javax.swing.JFrame {
         });
     }
 
+    
+    
+    /**
+	 * 
+	 */
+	private void initTable() {
+		String str;
+		
+		for (int i = 0; i < VMEspecification.DATA_MEM_SIZE; i++) {
+			modeloTabela.addRow(new String[] { "" + i ,"", ""});	
+		}
+		
+	}
+    
+    
 	/**
 	 * @param dataMemory
 	 */
-	public void updateTable(DataMemory dataMemory) {
-		//TODO
-		System.out.println("atualizar tabela da memoria");
+	public void updateTable(DataMemory dt) {
+		int value;
+		
+		for (int i = 0; i < VMEspecification.DATA_MEM_SIZE; i++) {
+			value = dt.get(i);
+			this.tabela.setValueAt(value, i, 1);
+			this.tabela.setValueAt(Util.intToBinary(value), i, 2);
+		}
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
 }

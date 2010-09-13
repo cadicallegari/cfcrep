@@ -8,6 +8,7 @@ package vm.bo;
 
 import java.util.BitSet;
 
+import vm.business.Util;
 import vm.especification.VMEspecification;
 
 /**
@@ -29,6 +30,12 @@ public class DataMemory {
 		}
 	}
 
+	
+	public int get(int i) {
+		return Util.bitSetToInt(this.memory[i]);
+	}
+	
+	
 
 	/**
 	 * @param memWrite

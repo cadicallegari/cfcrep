@@ -64,6 +64,30 @@ public class Util {
 		
 		return str;
 	}
+
+
+	/**
+	 * @param i
+	 * @return
+	 */
+	public static Object intToBinary(int i) {
+		return convertToBin(i);
+	}
 	
+	
+	private static String convertToBin(int x) {
+		String bin="";  
+	    
+		if (x > 0) {
+			if(x % 2 == 0) {
+				bin = (convertToBin(x / 2)+ "0");  
+			}
+			else {
+				bin = (convertToBin(x / 2) + "1");  
+			}
+	        
+		}  
+		return bin;  
+	} 
 	
 }

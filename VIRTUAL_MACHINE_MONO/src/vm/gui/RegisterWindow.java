@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import vm.bo.RegisterSet;
+import vm.business.Util;
+import vm.especification.VMEspecification;
 
 /**
  *
@@ -114,18 +116,33 @@ public class RegisterWindow extends javax.swing.JFrame {
 			modeloTabela.addRow(new String[] { "" ,"", ""});	
 		}
 		
-		for (int i = 8; i < 16; i++) {
+		//REGS T
+		for (int i = VMEspecification.REG_BASE_T_INIT; i < VMEspecification.REG_BASE_T_FINAL; i++) {
 			str = "$t" + (i - 8);
 			modeloTabela.addRow(new String[] { str ,"", ""});	
 		}
 
-		for (int i = 16; i < 24; i++) {
+		for (int i = VMEspecification.REG_BASE_S_INIT; i < VMEspecification.REG_BASE_S_FINAL; i++) {
 			str = "$s" + (i - 16);
 			modeloTabela.addRow(new String[] { str ,"", ""});	
 		}
 		
 	}
-
+	
+	
+	public void updateTable(RegisterSet rs) {	   
+		int value;
+		
+		for (int i = VMEspecification.REG_BASE_T_INIT; i < VMEspecification.REG_BASE_S_FINAL; i++) {
+			value = rs.get(i);
+			this.tabela.setValueAt(value, i, 1);
+			this.tabela.setValueAt(Util.intToBinary(value), i, 2);
+		}
+		
+	}
+	
+	
+	
 	/**
     * @param args the command line arguments
     */
@@ -137,12 +154,6 @@ public class RegisterWindow extends javax.swing.JFrame {
         });
     }
 
-
-   public void updateTable(RegisterSet rs) {	   
-		
-
-   
-   }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -39,6 +39,12 @@ public class RegisterSet {
 	}
 	
 	
+	public int get(int i) {
+		return this.content[i];
+	}
+	
+	
+	
 	/**
 	 * @param regWrite
 	 */
