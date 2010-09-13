@@ -110,8 +110,15 @@ public class Control {
 	 * 
 	 */
 	private void setSignalToJ() {
-		// TODO Auto-generated method stub
-		System.out.println("j");
+		this.RegDst 	= false;
+		this.Jump		= true;
+		this.Branch 	= true;
+		this.MemRead 	= false;
+		this.MemtoReg 	= false;
+		this.ALUOp.clear();
+		this.MemWrite 	= false;
+		this.ALUSrc 	= false;
+		this.RegWrite 	= false;
 	}
 
 
