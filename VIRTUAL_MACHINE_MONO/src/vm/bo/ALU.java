@@ -70,13 +70,13 @@ public class ALU {
 			
 				
 		}
-		else if (id == 0) {   // lw e sw
-			System.out.println("lw e sw");
-		}
 		else if (id == 1) { 	// beq
 			this.ZERO = this.OPERATOR1 == this.OPERATOR2;
 			System.out.println("beq");
 		}
+//		else if (id == 0) {   // lw e sw
+//			System.out.println("lw e sw");
+//		}
 		
 
 			
