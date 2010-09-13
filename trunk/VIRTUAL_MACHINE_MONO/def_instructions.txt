@@ -12,7 +12,7 @@ jr				op =  3   		//jump register | jump $ra
 	ok lw 				op = 35   		// lw  $22,4($16)		//$22 = Mem[4 + $16]		op = 35
 	ok sw 				op = 43 
 	ok beq 			op =  4  
-bne 			op =  5 
+	ok bne 			op =  5 
 	ok li				op = 21  			//load imidiete | rt = imidiete
 
 
