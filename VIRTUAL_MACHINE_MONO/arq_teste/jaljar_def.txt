@@ -4,7 +4,7 @@
 12 jr $31	
 16 and $16,$18,$17		//$s0 = 0				op = 0 funct = 36
 20 jr $31										op = 0 funct =
-24 bne $17, $16, 8		//PC = PC+4+4			op =  5
+beq $18,$20, 16		//PC = PC+4+8			op =  4
 28 j 12											op = 0 funct =
 32 None
 
