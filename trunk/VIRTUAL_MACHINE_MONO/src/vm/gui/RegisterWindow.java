@@ -127,6 +127,11 @@ public class RegisterWindow extends javax.swing.JFrame {
 			modeloTabela.addRow(new String[] { str ,"", ""});	
 		}
 		
+		for (int i = VMEspecification.REG_BASE_S_FINAL; i < VMEspecification.REG_RA; i++) {
+			modeloTabela.addRow(new String[] { "" ,"", ""});
+		}
+		modeloTabela.addRow(new String[] { "$ra" ,"", ""});
+		
 	}
 	
 	
@@ -139,6 +144,9 @@ public class RegisterWindow extends javax.swing.JFrame {
 			this.tabela.setValueAt(Util.intToBinary(value), i, 2);
 		}
 		
+		value = rs.get(VMEspecification.REG_RA);
+		this.tabela.setValueAt(rs.get(VMEspecification.REG_RA), VMEspecification.REG_RA, 1);
+		this.tabela.setValueAt(rs.get(VMEspecification.REG_RA), VMEspecification.REG_RA, 2);
 	}
 	
 	
