@@ -1,0 +1,6 @@
+0  lui $17,2			//$s1 = 2				op = 0 funct =
+4  jal 15										op = 0 funct =
+8  jr $31										op = 0 funct =
+12 jr $31										op = 0 funct =
+16 bne $17,$16,1		//PC = PC+4+4			op =  5
+20 None
