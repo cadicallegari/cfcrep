@@ -29,17 +29,28 @@ public class RegisterSet {
 	
 	
 	
-	
+	/**
+	 * Retorna o valor do registrador com o endereço dado por READ REGISTER 1
+	 * @return valor contido no registrador com o endereço dado por READ_REGISTER_1
+	 */
 	public int readData1() {
 		return this.content[this.READ_REGISTER_1]; 
 	}
 	
 	
+	/**
+	 * Retorna o valor do registrador com o endereço dado por READ REGISTER 2
+	 * @return valor contido no registrador com o endereço dado por READ_REGISTER_2
+	 */
 	public int readData2() {
 		return this.content[this.READ_REGISTER_2];
 	}
 	
 	
+	/**
+	 * Retorna o valor do registrador com o endereço dado por i
+	 * @return valor contido no registrador dado por i
+	 */
 	public int get(int i) {
 		return this.content[i];
 	}
@@ -47,6 +58,8 @@ public class RegisterSet {
 	
 	
 	/**
+	 * Se RegWrite for true escreve no registrador posiçao WRITE_REGISTER
+	 * o conteudo de WRITE_DATA
 	 * @param regWrite
 	 */
 	public void execute(boolean regWrite) {
@@ -71,7 +84,7 @@ public class RegisterSet {
 
 	/**
 	 * @param rs
-	 * @return
+	 * @return valor contido no registrador dado rs
 	 */
 	public Integer readRegister(BitSet rs) {
 		return new Integer(this.content[Util.bitSetToInt(rs)]);

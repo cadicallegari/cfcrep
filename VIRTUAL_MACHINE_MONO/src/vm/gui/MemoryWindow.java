@@ -130,7 +130,8 @@ public class MemoryWindow extends javax.swing.JFrame {
     
     
 	/**
-	 * @param dataMemory
+	 * Atualiza dados da tabela da memoria
+	 * @param dt
 	 */
 	public void updateTable(DataMemory dt) {
 		int value;

@@ -7,7 +7,6 @@
 package vm.business;
 
 import java.util.BitSet;
-import java.util.Vector;
 
 import vm.bo.ALU;
 import vm.bo.ALUControl;
@@ -38,9 +37,6 @@ public class DataPath {
 	
 	
 	
-	/**
-	 * @param instruction
-	 */
 	public DataPath() {
 		DataPath.PC = 0;
 	}
@@ -268,7 +264,7 @@ public class DataPath {
 
 
 	/**
-	 * @return
+	 * @return Register Set
 	 */
 	public RegisterSet getRegisterSet() {
 		return this.registers;
@@ -276,7 +272,7 @@ public class DataPath {
 
 
 	/**
-	 * @return
+	 * @return Memória de dados
 	 */
 	public DataMemory getDataMemory() {
 		return this.dataMemory;

@@ -36,6 +36,7 @@ public class Instruction {
 	public BitSet J_ADDRESS;
 
 	
+	
 	public Instruction() {
 		
 	};
