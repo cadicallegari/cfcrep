@@ -1,0 +1,60 @@
+Especificações Maquina Virtual MIPS Monociclo
+
+CONCIDERAÇÕES:
+
+	- A maquina virtual não trabalha com numeros negativos (C-2), tratando somente numeros
+	inteiros como binário puro.
+
+	- A janela de detalhes dos registradores mostra apenas os registradores que podem ser utilizados, como:
+	$t0 a $t7,  $s0 a $s7 e $ra.
+	
+	- É o arquivo de entrada com as instruções a serem executadas SEMPRE deve possuir a instrução NOP
+	como ultima instrução do arquivo.
+		NOP = 00000000000000000000000000000000
+	
+	- Cada unidade funcional da via de dados foi mapeada como uma classe.
+	
+	- A classe DataPath possui como atributos estas unidades funcionais, simulando o conjunto
+	da máquina virtual.
+	
+	- A classe DataPah possui um método chamado run, tal método simula a execução de um ciclo de clock completo.
+	
+	- As instruções suportadas são:
+		- R Type: | add | sub | and | or |
+		  FUNCT : |  32 |  34 |  36 | 37 |
+		  
+		- I Type: | lw | sw | beq | bne | li |
+		  OPCODE: | 35 | 43 |   4 |   5 | 21 |
+		  
+		- J Type: | j | jal | jr |
+		  OPCODE: | 2 |   3 |  6 |
+		  
+
+IMPLEMENTAÇÃO (Descrição do método run (clock):
+	
+	Passos:
+		
+		- Lê instrução no endereço dado por PC
+		- Atribui os sinais de controle de acordo com o OPCODE da instrução
+		- Calcula PC + 4
+		- Calcula valor do endereço de desvio com shift left de 2
+		- Soma o endereço gerado nos dois passos acima gerando o endereço da instrução J
+		- Extende de 16 para 32 bits os 16 bits de mais baixa ordem da instrução
+		- Calcula shift left de 2 -
+		- Atribui ao conjunto de registradores o registrador de leitura 1 e 2
+		- Descide se RS ou RT da instrução será o WRITE REGISTER de acordo com o valor de RegDst
+		- Atribui os valores FUNCT e ALUOp da AluControl
+		- Atribui o primeiro operador da ALU
+		- Descide se o segundo operador da ALU será o endereço de desvio extendido para 32 ou o read data 2 do banco de registradores de acordo com o sinal ALUSrc
+		- Executa a operação da ALU
+		- Atribui o resultado da ALU ao endereço de acesso da memória 
+		- Atribui o readData2 ao WriteData da memória
+		- Lê e/ou Escreve na memória de acordo com os sinais MemWrite e MemRead
+		- Descide qual será o valor de WRITE DATA entre READ DATA da memória e ALU RESULT de acordo com o sinal MemtoReg
+		- Simula a porta lógica AND de um bit com os sinais Branch e ZERO
+		- Descide entre o endereço de desvio extendido para 32 bits somado com 4 e pc+4 de acordo com o sinal
+		- Descide entre os resultado dos dois passos acima qual será o novo valor de PC de acordo com o sinal Jump
+		- Escreve ou não nos registradores de acordo com o sinal RegWrite
+	
+	
+		
