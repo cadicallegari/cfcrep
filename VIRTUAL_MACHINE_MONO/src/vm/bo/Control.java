@@ -96,7 +96,7 @@ public class Control {
 	 */
 	private void setSignalToJAL() {
 		this.RegDst 	= false;
-		this.Jump		= true;
+		this.Jump		= false;
 		this.Branch 	= false;
 		this.MemRead 	= false;
 		this.MemtoReg 	= false;
@@ -113,7 +113,7 @@ public class Control {
 	 */
 	private void setSignalToJR() {
 		this.RegDst 	= false;
-		this.Jump		= true;
+		this.Jump		= false;
 		this.Branch 	= false;
 		this.MemRead 	= false;
 		this.MemtoReg 	= false;

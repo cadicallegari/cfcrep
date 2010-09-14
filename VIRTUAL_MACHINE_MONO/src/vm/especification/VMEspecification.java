@@ -24,7 +24,7 @@ public class VMEspecification {
 	public static final int ALUOP_RTYPE = 2;
 	
 	public static final int OP_CODE_J = 2;
-	public static final int OP_CODE_JR = 6;		//verificar se eh melhor assim ou do R TYPE
+	public static final int OP_CODE_JR = 8;		//verificar se eh melhor assim ou do R TYPE
 	public static final int OP_CODE_JAL = 3;
 	
 	public static final int OP_CODE_LI = 21;

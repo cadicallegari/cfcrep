@@ -158,9 +158,11 @@ public class DataPath {
 		//parte que trata da jal e jr
 		if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_JAL) {
 			this.registers.setRA(pc4);
-			DataPath.PC = Util.bitSetToInt(this.instruction_current.J_ADDRESS);
+			DataPath.PC = Util.bitSetToInt(this.instruction_current.ADDRESS);
 		}
-		else if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_JR) {
+		else if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_JR
+				|| Util.bitSetToInt(this.instruction_current.FUNCT) == VMEspecification.OP_CODE_JR) 
+		{
 			DataPath.PC = this.registers.readRegister(this.instruction_current.RS);
 		}
 		
