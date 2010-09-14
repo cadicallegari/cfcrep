@@ -124,7 +124,6 @@ public class DataPath {
 		
 		//para contornar o problema da SW com o endereço da memoria invalido
 		if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_SW) {
-//			this.alu.RESULT = this.registers.READ_REGISTER_2 + Util.bitSetToInt(this.instruction_current.CONST);
 			this.alu.RESULT = this.registers.READ_REGISTER_2;
 		}
 		
@@ -135,7 +134,6 @@ public class DataPath {
 		//para contornar o problema de endereço da LW
 		if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_LW) {
 			this.dataMemory.ADDRESS = Util.bitSetToInt(this.instruction_current.RS);
-			//TODO verificar endereços
 		}
 		
 		//de acordo com os sinais faz as operaçoes na memoria

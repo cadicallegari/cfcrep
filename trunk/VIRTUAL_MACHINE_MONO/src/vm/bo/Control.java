@@ -95,8 +95,15 @@ public class Control {
 	 * 
 	 */
 	private void setSignalToJAL() {
-		// TODO Auto-generated method stub
-		System.out.println("jal");
+		this.RegDst 	= false;
+		this.Jump		= true;
+		this.Branch 	= false;
+		this.MemRead 	= false;
+		this.MemtoReg 	= false;
+		this.ALUOp.clear();
+		this.MemWrite 	= false;
+		this.ALUSrc 	= false;
+		this.RegWrite 	= false;
 	}
 
 
@@ -105,8 +112,15 @@ public class Control {
 	 * 
 	 */
 	private void setSignalToJR() {
-		// TODO Auto-generated method stub
-		System.out.println("jr");
+		this.RegDst 	= false;
+		this.Jump		= true;
+		this.Branch 	= false;
+		this.MemRead 	= false;
+		this.MemtoReg 	= false;
+		this.ALUOp.clear();
+		this.MemWrite 	= false;
+		this.ALUSrc 	= false;
+		this.RegWrite 	= false;
 	}
 
 
