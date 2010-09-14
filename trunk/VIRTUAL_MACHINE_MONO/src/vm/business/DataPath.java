@@ -53,7 +53,7 @@ public class DataPath {
 	
 	
 	/**
-	 * 
+	 * Simula a execução de um ciclo de clock 
 	 */
 	public void run() {
 		
@@ -79,12 +79,19 @@ public class DataPath {
 		//unidade de controle se prepara para executar a instruçao
 		this.control.setOp(this.instruction_current.OP);
 		
-		//TODO calcular jump address j_address sh 2 + pc + 4 POSSIVELMENTE ERRADO
+		//TODO calcular jump address j_address sh 2 + pc + 4 erro em potencial
 		pc4 = Adder.add(DataPath.PC, 4);
 		insAddrSh2 = this.shiftLeft2(Util.bitSetToInt(this.instruction_current.J_ADDRESS));
-		System.out.println(Util.bitSetToInt(this.instruction_current.J_ADDRESS) + " endereco " + insAddrSh2);
 		jumpAddress = this.calculateJumpAddress(insAddrSh2, pc4);
-		System.out.println(Util.bitSetToInt(jumpAddress));
+		
+		//extende o sinal e faz o shift left de 2 do endereço da instruçao do tipo I
+		insAddr32Extended = Util.bitSetToInt(this.signalExtend(this.instruction_current.ADDRESS));
+		insAddr32ExtendedSh2 = this.shiftLeft2(insAddr32Extended);
+
+		//soma pc + 4 com endereco com o sinal estendido
+		//pc4_SignalExtended = Adder.add(pc4, jumpAddressSignalExtended);
+		//TODO WARNING
+		pc4_insAddrSh2 = insAddr32Extended;
 		
 		//rs e rt servem de entrada para banco de registradores
 		this.registers.READ_REGISTER_1 = Util.bitSetToInt(this.instruction_current.RS);
@@ -95,15 +102,6 @@ public class DataPath {
 									this.instruction_current.RD, 
 									this.instruction_current.RT);
 		this.registers.WRITE_REGISTER = Util.bitSetToInt(wregister);
-		
-		//extende o sinal e faz o shift left de 2 do endereço da instruçao do tipo I
-		insAddr32Extended = Util.bitSetToInt(this.signalExtend(this.instruction_current.ADDRESS));
-		insAddr32ExtendedSh2 = this.shiftLeft2(insAddr32Extended);
-		
-		//soma pc + 4 com endereco com o sinal estendido
-		//pc4_SignalExtended = Adder.add(pc4, jumpAddressSignalExtended);
-		//TODO WARNING
-		pc4_insAddrSh2 = insAddr32Extended;
 		
 		//alimenta as entradas da ALU CONTROL
 		this.aluControl.FUNCT = this.instruction_current.FUNCT;
@@ -169,11 +167,9 @@ public class DataPath {
 		//escreve ou nao no registrador de acordo com o sinal REGWRITE
 		this.registers.execute(this.control.RegWrite);
 		
-		System.out.println(DataPath.PC);
+		System.out.println("PC "+ DataPath.PC);
 	}
 
-	
-	
 	
 	
 
