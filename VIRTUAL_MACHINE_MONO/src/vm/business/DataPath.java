@@ -157,6 +157,15 @@ public class DataPath {
 		//segundo multiplexador do endereço
 		DataPath.PC = MUX.choise(this.control.Jump, insAddr32Extended, end);
 		
+		//parte que trata da jal e jr
+		if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_JAL) {
+			this.registers.setRA(pc4);
+			DataPath.PC = Util.bitSetToInt(this.instruction_current.J_ADDRESS);
+		}
+		else if (Util.bitSetToInt(this.instruction_current.OP) == VMEspecification.OP_CODE_JR) {
+			DataPath.PC = this.registers.readRegister(this.instruction_current.RS);
+		}
+		
 		//escreve ou nao no registrador de acordo com o sinal REGWRITE
 		this.registers.execute(this.control.RegWrite);
 		
