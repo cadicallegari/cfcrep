@@ -9,8 +9,6 @@ package vm.bo;
 import java.util.BitSet;
 import java.util.Vector;
 
-import vm.business.Util;
-
 /**
  * @author cadi
  *
@@ -38,7 +36,10 @@ public class InstructionMemory {
 	}
 
 	
-	
+	/**
+	 * Adiciona instrução sempre com indice de 4 em 4
+	 * @param str
+	 */
 	public void addInstruction(String str) {
 		this.instruction.add(str);
 		this.instruction.add("");
@@ -48,8 +49,9 @@ public class InstructionMemory {
 	
 
 	/**
+	 * Le instrucao dada pelo pc e atribui aos campos seus respectivos valores
 	 * @param pC
-	 * @return
+	 * @return Instruçao no endereço PC
 	 */
 	public Instruction readInstruction(int pC) {
 		
@@ -79,9 +81,6 @@ public class InstructionMemory {
 		instruction.setStrInstruciton(str);
 		
 		System.out.println(str);
-		System.out.println("op code " + Util.bitSetToInt(op));
-		System.out.println("funct " + Util.bitSetToInt(instruction.FUNCT));
-		System.out.println("const " + Util.bitSetToInt(instruction.ADDRESS));
 		
 		return instruction;
 		
@@ -90,6 +89,7 @@ public class InstructionMemory {
 	
 	
 	/**
+	 * Obtem endereço para instruçoes do tipo I
 	 * @param str
 	 * @return
 	 */
@@ -112,6 +112,7 @@ public class InstructionMemory {
 
 	
 	/**
+	 * Obtem o campo CONST para instruçoes do tipo I
 	 * @return
 	 */
 	private BitSet getCONST(String str) {
@@ -134,6 +135,7 @@ public class InstructionMemory {
 	
 	
 	/**
+	 * Obtem o valor do jump para instruçoes do tipo J
 	 * @param str
 	 * @return
 	 */
@@ -157,6 +159,7 @@ public class InstructionMemory {
 	
 
 	/**
+	 * Obtem o campo FUNCT para instruçoes do tipo R
 	 * @param str
 	 * @return
 	 */
@@ -179,6 +182,7 @@ public class InstructionMemory {
 	}
 
 	/**
+	 * Obtem o campo SHAMT para instruçoes do tipo R
 	 * @param str
 	 * @return
 	 */
@@ -202,6 +206,7 @@ public class InstructionMemory {
 	
 	
 	/**
+	 * Obtem o registrador RT da instruçao
 	 * @param str
 	 * @return
 	 */
@@ -225,6 +230,7 @@ public class InstructionMemory {
 	
 	
 	/**
+	 * Obtem o campo RD da instruçao
 	 * @param str
 	 * @return
 	 */
@@ -246,6 +252,7 @@ public class InstructionMemory {
 	}
 
 	/**
+	 * Obtem o campo RS da instruçao
 	 * @param str
 	 * @return
 	 */
@@ -267,6 +274,7 @@ public class InstructionMemory {
 	}
 
 	/**
+	 * Obtem o OPCODE da instruçao
 	 * @param str
 	 * @return
 	 */

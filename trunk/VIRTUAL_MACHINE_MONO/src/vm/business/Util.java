@@ -18,7 +18,7 @@ public class Util {
 	/**
 	 * Metodo pego da internet para converter um bit set para inteiro
 	 * @param bs
-	 * @return
+	 * @return bs convertido em inteiro
 	 */
 	public static int bitSetToInt(BitSet bs) {
 		int aux = 0;
@@ -33,7 +33,7 @@ public class Util {
 	/**
 	 * Metodo pego da internet que converte um numero inteiro para bitset
 	 * @param nro
-	 * @return
+	 * @return nro convertido para um BitSet
 	 */
 	public static BitSet intToBitSet(int nro) {
 		BitSet bs = new BitSet();
@@ -49,8 +49,9 @@ public class Util {
 
 
 	/**
-	 * @param regDst
-	 * @return
+	 * Converte um boolean em 0 ou 1 
+	 * @param b
+	 * @return string representando o boolean
 	 */
 	public static String booleanToString(boolean b) {
 		
@@ -67,10 +68,11 @@ public class Util {
 
 
 	/**
+	 * Converte inteiro dado como parametro para binario
 	 * @param i
-	 * @return
+	 * @return string que representa o inteiro i passado como parametro em binario
 	 */
-	public static Object intToBinary(int i) {
+	public static String intToBinary(int i) {
 		return convertToBin(i);
 	}
 	

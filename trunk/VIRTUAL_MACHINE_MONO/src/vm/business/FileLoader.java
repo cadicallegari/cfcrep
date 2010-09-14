@@ -27,14 +27,17 @@ public class FileLoader {
 	public static InstructionMemory load(String filePath) throws IOException {
 		InstructionMemory instruction = new InstructionMemory();
 		FileLoader.filePath = filePath;
-			
+		
+		if (filePath == null) {
+			return null;
+		}
+		
 		BufferedReader buf = new BufferedReader(new FileReader(FileLoader.filePath));
 		
 		String line = buf.readLine();
 		
 		while (buf.ready()) {
 			line.trim();
-			//TODO fazer endereço incrementar de 4 em 4
 			instruction.addInstruction(line);
 			line = buf.readLine();
 		}
@@ -45,14 +48,15 @@ public class FileLoader {
 
 
 	/**
-	 * @return
+	 * Escolher arquivo 
+	 * @return retorna path do arquivo selecionado ou null
 	 */
 	public static String chooseFile() {
-        JFileChooser fC = new JFileChooser(".");
+        JFileChooser fC = new JFileChooser("..");
         fC.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int result = fC.showOpenDialog(fC);
         if (result == JFileChooser.CANCEL_OPTION) {
-            return "";
+            return null;
         }
         return fC.getSelectedFile().getAbsolutePath();
 	}

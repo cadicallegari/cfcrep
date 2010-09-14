@@ -38,7 +38,6 @@ public class Control {
 	 * @param op
 	 */
 	public void setOp(BitSet op) {
-//		this.op = op;
 		this.opCode = Util.bitSetToInt(op);
 		
 		if (this.opCode == VMEspecification.R_TYPE) {      //R-TYPE
@@ -214,8 +213,6 @@ public class Control {
 		this.RegWrite 	= true;
 		this.ALUOp.set(1);
 		this.ALUOp.clear(0);
-//		this.ALUOp1		= true;
-//		this.ALUOp0 	= false;
 		this.MemRead 	= false;
 		this.MemWrite 	= false;
 		this.Branch		= false;
