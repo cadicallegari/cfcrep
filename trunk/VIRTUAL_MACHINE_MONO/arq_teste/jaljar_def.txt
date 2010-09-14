@@ -1,6 +1,17 @@
-0  lui $17,2			//$s1 = 2				op = 0 funct =
-4  jal 15										op = 0 funct =
-8  jr $31										op = 0 funct =
-12 jr $31										op = 0 funct =
-16 bne $17,$16,1		//PC = PC+4+4			op =  5
-20 None
+0  lui $17, 0			//$s1 = 2				op = 0 funct =
+4  jal 24										op = 0 funct =
+8  j 0									op = 0 funct =
+12 jr $31	
+16 and $16,$18,$17		//$s0 = 0				op = 0 funct = 36
+20 jr $31										op = 0 funct =
+24 bne $17, $16, 8		//PC = PC+4+4			op =  5
+28 j 12											op = 0 funct =
+32 None
+
+0
+4
+24
+28
+12
+8
+0

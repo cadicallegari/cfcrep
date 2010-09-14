@@ -146,7 +146,7 @@ public class RegisterWindow extends javax.swing.JFrame {
 		
 		value = rs.get(VMEspecification.REG_RA);
 		this.tabela.setValueAt(rs.get(VMEspecification.REG_RA), VMEspecification.REG_RA, 1);
-		this.tabela.setValueAt(rs.get(VMEspecification.REG_RA), VMEspecification.REG_RA, 2);
+		this.tabela.setValueAt(Util.intToBinary(rs.get(VMEspecification.REG_RA)), VMEspecification.REG_RA, 2);
 	}
 	
 	
