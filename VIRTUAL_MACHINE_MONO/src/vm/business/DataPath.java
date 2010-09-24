@@ -147,6 +147,7 @@ public class DataPath {
 		end = MUX.choise(resultAnd, pc4_insAddrSh2, pc4);
 		
 		//segundo multiplexador do endereço
+		//TODO erro no insAddr32Extended deve ser trocado por pc4_insAddrSh2
 		DataPath.PC = MUX.choise(this.control.Jump, insAddr32Extended, end);
 		
 		//parte que trata da jal e jr
