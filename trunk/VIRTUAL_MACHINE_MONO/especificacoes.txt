@@ -1,6 +1,6 @@
 Especificações Maquina Virtual MIPS Monociclo
 
-CONCIDERAÇÕES:
+CONSIDERAÇÕES:
 
 	- A maquina virtual não trabalha com numeros negativos (C-2), tratando somente numeros
 	inteiros como binário puro.
@@ -17,7 +17,7 @@ CONCIDERAÇÕES:
 	- A classe DataPath possui como atributos estas unidades funcionais, simulando o conjunto
 	da máquina virtual.
 	
-	- A classe DataPah possui um método chamado run, tal método simula a execução de um ciclo de clock completo.
+	- A classe DataPath possui um método chamado run, tal método simula a execução de um ciclo de clock completo.
 	
 	- As instruções suportadas são:
 		- R Type: | add | sub | and | or |
